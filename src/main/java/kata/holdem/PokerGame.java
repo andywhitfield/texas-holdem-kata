@@ -9,6 +9,7 @@ import java.util.Map;
 public class PokerGame {
 	private Map<String, List<String>> playersAndTheirCards = new HashMap<String, List<String>>();
 	private String lastPlayerDealt;
+	private List<PokerRound> rounds = new ArrayList<PokerRound>();
 	
 	public PokerGame deal(String player) {
 		playersAndTheirCards.put(player, new ArrayList<String>());
