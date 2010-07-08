@@ -11,6 +11,12 @@ public class PokerGame {
 	private String lastPlayerDealt;
 	private List<PokerRound> rounds = new ArrayList<PokerRound>();
 	
+	public PokerRound newRound() {
+		PokerRound round = new PokerRound();
+		rounds.add(round);
+		return round;
+	}
+	
 	public PokerGame deal(String player) {
 		playersAndTheirCards.put(player, new ArrayList<String>());
 		lastPlayerDealt = player;
