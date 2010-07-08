@@ -1,10 +1,7 @@
 package kata.holdem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PokerGame {
 	private List<PokerRound> rounds = new ArrayList<PokerRound>();

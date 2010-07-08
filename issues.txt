@@ -2,9 +2,6 @@
 mean having to keep track of the 'last player' in an instance variable.
 Could make this interface better.
 
-- The Game class is really representing a particular 'round', potential
-refactoring required.
-
 - Hard-coding of the winner text.
 
 - Repetitive code for the dealTurn, dealRiver implementations.
