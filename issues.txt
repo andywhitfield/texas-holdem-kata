@@ -8,3 +8,8 @@ Could make this interface better.
 
 - The community cards are added to each players list of cards. Is the
 model correct? Perhaps we need to add the concept of a 'deal'.
+
+- PokerRound results method getting unwieldy.
+
+- PokerRound now has three collections containing players names. Possibly
+missing some abstraction here.
