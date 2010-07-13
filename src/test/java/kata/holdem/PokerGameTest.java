@@ -15,4 +15,17 @@ public class PokerGameTest {
 		
 		Assert.assertEquals("john: 4d 2d Ks Kd 9d 6h Jh (Winner)", game.results());
 	}
+	
+	@Test
+	public void when_one_player_folds_then_the_other_player_should_be_the_winner() {
+		PokerGame game = new PokerGame();
+		PokerRound round = game.newRound();
+		round.deal("john").holeCards("4d", "2d");
+		round.deal("jane").holeCards("Th", "3c");
+		round.dealFlop("Ks", "8d", "4d");
+		round.fold("jane");
+		
+		Assert.assertEquals("john: 4d 2d Ks 8d 4d (Winner)\n" +
+				"jane: Th 3c Ks 8d 4d [folded]", game.results());
+	}
 }

@@ -3,21 +3,24 @@ package kata.holdem;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PokerRound {
+	private List<String> players = new ArrayList<String>();
+	private Set<String> foldedPlayers = new HashSet<String>();
 	private Map<String, List<String>> playersAndTheirCards = new HashMap<String, List<String>>();
-	private String lastPlayerDealt;
 
 	public PokerRound deal(String player) {
+		players.add(player);
 		playersAndTheirCards.put(player, new ArrayList<String>());
-		lastPlayerDealt = player;
 		return this;
 	}
 	
 	public PokerRound holeCards(String card1, String card2) {
-		playersAndTheirCards.get(lastPlayerDealt).addAll(Arrays.asList(card1, card2));
+		playersAndTheirCards.get(players.get(players.size() - 1)).addAll(Arrays.asList(card1, card2));
 		return this;
 	}
 	
@@ -39,13 +42,22 @@ public class PokerRound {
 		return this;
 	}
 
+	public PokerRound fold(String player) {
+		foldedPlayers.add(player);
+		return this;
+	}
+
 	public String results() {
 		StringBuilder results = new StringBuilder();
-		for (Map.Entry<String, List<String>> playerAndTheirCards : playersAndTheirCards.entrySet()) {
-			results.append(playerAndTheirCards.getKey()).append(':');
-			for (String card : playerAndTheirCards.getValue())
+		for (String player : players) {
+			if (results.length() > 0) results.append("\n");
+			
+			results.append(player).append(':');
+			for (String card : playersAndTheirCards.get(player))
 				results.append(' ').append(card);
-			results.append(" (Winner)");
+			
+			if (foldedPlayers.contains(player)) results.append(" [folded]");
+			else results.append(" (Winner)");
 		}
 		return results.toString();
 	}
