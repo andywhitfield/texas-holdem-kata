@@ -26,4 +26,18 @@ public class PokerRoundTest {
 		Assert.assertEquals("john: 4d 2d Ks 8d 4d (Winner)\n" +
 				"jane: Th 3c Ks 8d 4d [folded]", round.results());
 	}
+	
+	@Test
+	public void when_both_players_see_all_the_cards_and_both_only_have_high_card_then_the_winner_should_be_the_one_with_the_highest_card() {
+		PokerRound round = new PokerRound();
+		round.deal("john").holeCards("4d", "2d");
+		round.deal("jane").holeCards("Ah", "3c");
+		round
+			.dealFlop("Qc", "Td", "5s")
+			.dealTurn("6c")
+			.dealRiver("9h");
+		
+		Assert.assertEquals("john: 4d 2d Qc Td 5s 6c 9h\n" +
+				"jane: Ah 3c Qc Td 5s 6c 9h (Winner)", round.results());
+	}
 }
