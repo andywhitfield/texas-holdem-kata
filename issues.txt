@@ -13,3 +13,8 @@ model correct? Perhaps we need to add the concept of a 'deal'.
 
 - PokerRound now has three collections containing players names. Possibly
 missing some abstraction here.
+
+- In the RoundWinners class, we need to remove the hard-coded result. We
+need to be able to find a player's highest card. Could do with a proper
+class at this point rather than the string (e.g. "Ac" representing the Ace
+of Clubs).
