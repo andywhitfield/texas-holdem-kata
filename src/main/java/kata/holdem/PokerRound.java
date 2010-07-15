@@ -48,6 +48,8 @@ public class PokerRound {
 	}
 
 	public String results() {
+		RoundWinners winners = identifyWinners();
+		
 		StringBuilder results = new StringBuilder();
 		for (String player : players) {
 			if (results.length() > 0) results.append("\n");
@@ -57,14 +59,12 @@ public class PokerRound {
 				results.append(' ').append(card);
 			
 			if (foldedPlayers.contains(player)) results.append(" [folded]");
-			else if (isWinner(player)) results.append(" (Winner)");
+			else if (winners.isWinner(player)) results.append(" (Winner)");
 		}
 		return results.toString();
 	}
 
-	private boolean isWinner(String player) {
-		if (playersAndTheirCards.get(player).equals(Arrays.asList("4d", "2d", "Qc", "Td", "5s", "6c", "9h")))
-			return false;
-		return true;
+	private RoundWinners identifyWinners() {
+		return new RoundWinners(playersAndTheirCards);
 	}
 }
