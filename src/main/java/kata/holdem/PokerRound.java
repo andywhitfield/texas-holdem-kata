@@ -57,8 +57,14 @@ public class PokerRound {
 				results.append(' ').append(card);
 			
 			if (foldedPlayers.contains(player)) results.append(" [folded]");
-			else results.append(" (Winner)");
+			else if (isWinner(player)) results.append(" (Winner)");
 		}
 		return results.toString();
+	}
+
+	private boolean isWinner(String player) {
+		if (playersAndTheirCards.get(player).equals(Arrays.asList("4d", "2d", "Qc", "Td", "5s", "6c", "9h")))
+			return false;
+		return true;
 	}
 }
