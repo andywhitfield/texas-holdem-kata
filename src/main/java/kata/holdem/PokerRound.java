@@ -1,7 +1,6 @@
 package kata.holdem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,13 +19,13 @@ public class PokerRound {
 	}
 	
 	public PokerRound holeCards(String card1, String card2) {
-		playersAndTheirCards.get(players.get(players.size() - 1)).addAll(Arrays.asList(Card.from(card1), Card.from(card2)));
+		playersAndTheirCards.get(players.get(players.size() - 1)).addAll(Cards.from(card1, card2));
 		return this;
 	}
 	
 	public PokerRound dealFlop(String card1, String card2, String card3) {
 		for (List<Card> cards : playersAndTheirCards.values())
-			cards.addAll(Arrays.asList(Card.from(card1), Card.from(card2), Card.from(card3)));
+			cards.addAll(Cards.from(card1, card2, card3));
 		return this;
 	}
 	
