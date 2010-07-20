@@ -11,34 +11,34 @@ import java.util.Set;
 public class PokerRound {
 	private List<String> players = new ArrayList<String>();
 	private Set<String> foldedPlayers = new HashSet<String>();
-	private Map<String, List<String>> playersAndTheirCards = new HashMap<String, List<String>>();
+	private Map<String, List<Card>> playersAndTheirCards = new HashMap<String, List<Card>>();
 
 	public PokerRound deal(String player) {
 		players.add(player);
-		playersAndTheirCards.put(player, new ArrayList<String>());
+		playersAndTheirCards.put(player, new ArrayList<Card>());
 		return this;
 	}
 	
 	public PokerRound holeCards(String card1, String card2) {
-		playersAndTheirCards.get(players.get(players.size() - 1)).addAll(Arrays.asList(card1, card2));
+		playersAndTheirCards.get(players.get(players.size() - 1)).addAll(Arrays.asList(Card.from(card1), Card.from(card2)));
 		return this;
 	}
 	
 	public PokerRound dealFlop(String card1, String card2, String card3) {
-		for (List<String> cards : playersAndTheirCards.values())
-			cards.addAll(Arrays.asList(card1, card2, card3));
+		for (List<Card> cards : playersAndTheirCards.values())
+			cards.addAll(Arrays.asList(Card.from(card1), Card.from(card2), Card.from(card3)));
 		return this;
 	}
 	
 	public PokerRound dealTurn(String card) {
-		for (List<String> cards : playersAndTheirCards.values())
-			cards.add(card);
+		for (List<Card> cards : playersAndTheirCards.values())
+			cards.add(Card.from(card));
 		return this;
 	}
 	
 	public PokerRound dealRiver(String card) {
-		for (List<String> cards : playersAndTheirCards.values())
-			cards.add(card);
+		for (List<Card> cards : playersAndTheirCards.values())
+			cards.add(Card.from(card));
 		return this;
 	}
 
@@ -55,7 +55,7 @@ public class PokerRound {
 			if (results.length() > 0) results.append("\n");
 			
 			results.append(player).append(':');
-			for (String card : playersAndTheirCards.get(player))
+			for (Card card : playersAndTheirCards.get(player))
 				results.append(' ').append(card);
 			
 			if (foldedPlayers.contains(player)) results.append(" [folded]");
