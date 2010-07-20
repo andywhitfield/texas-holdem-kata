@@ -18,3 +18,6 @@ missing some abstraction here.
 need to be able to find a player's highest card. Could do with a proper
 class at this point rather than the string (e.g. "Ac" representing the Ace
 of Clubs).
+
+- Multiple cases where we are constructing a list of cards - could
+potentially overload the Card.from method.
