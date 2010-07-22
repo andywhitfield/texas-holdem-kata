@@ -2,8 +2,6 @@
 mean having to keep track of the 'last player' in an instance variable.
 Could make this interface better.
 
-- Hard-coding of the winner text.
-
 - Repetitive code for the dealTurn, dealRiver implementations.
 
 - The community cards are added to each players list of cards. Is the
@@ -14,10 +12,10 @@ model correct? Perhaps we need to add the concept of a 'deal'.
 - PokerRound now has three collections containing players names. Possibly
 missing some abstraction here.
 
-- In the RoundWinners class, we need to remove the hard-coded result. We
-need to be able to find a player's highest card. Could do with a proper
-class at this point rather than the string (e.g. "Ac" representing the Ace
-of Clubs).
+- The RoundWinners class is simply a crude check of highest card -
+without even taking into consideration second or more cards. Clearly
+a first stab towards a more complete solution.
 
-- Multiple cases where we are constructing a list of cards - could
-potentially overload the Card.from method.
+- The map of players and their cards is passed from the round to the
+RoundWinners class - as noted above, perhaps we need a better abstraction
+of this collection?
