@@ -31,4 +31,16 @@ public class RoundWinnersTest {
 		Assert.assertTrue(winners.isWinner("player-one"));
 		Assert.assertTrue(winners.isWinner("player-two"));
 	}
+
+	@Test
+	public void given_one_player_with_a_low_pair_and_one_player_with_only_high_card_should_identify_pair_as_winner() {
+		Map<String, List<Card>> playersAndTheirCards = new HashMap<String, List<Card>>();
+		
+		playersAndTheirCards.put("player-one", Cards.from("2d", "2c"));
+		playersAndTheirCards.put("player-two", Cards.from("Ah", "Kc"));
+		
+		RoundWinners winners = new RoundWinners(playersAndTheirCards);
+		Assert.assertTrue(winners.isWinner("player-one"));
+		Assert.assertFalse(winners.isWinner("player-two"));
+	}
 }
