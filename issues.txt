@@ -12,10 +12,12 @@ model correct? Perhaps we need to add the concept of a 'deal'.
 - PokerRound now has three collections containing players names. Possibly
 missing some abstraction here.
 
-- The RoundWinners class is simply a crude check of highest card -
-without even taking into consideration second or more cards. Clearly
-a first stab towards a more complete solution.
-
 - The map of players and their cards is passed from the round to the
 RoundWinners class - as noted above, perhaps we need a better abstraction
 of this collection?
+
+- HandRanking class needs some work.
+
+- Tne RoundWinnders class is a little improved - however I need to remove
+the highest card check - doesn't really belong here anymore - but should
+it all be handled by the rank?
