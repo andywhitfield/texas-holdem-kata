@@ -1,5 +1,6 @@
 package kata.holdem;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -10,14 +11,16 @@ public class RoundWinners {
 	
 	public RoundWinners(Map<String, List<Card>> playersAndTheirCards) {
 		for (Map.Entry<String, List<Card>> entry : playersAndTheirCards.entrySet()) {
-			playersAndTheirHands.put(entry.getKey(), RankedHand.rank(entry.getValue()));
+			playersAndTheirHands.put(entry.getKey(), RankedHand.rank(entry.getKey(), entry.getValue()));
 		}
 	}
 
 	public boolean isWinner(String player) {
 		int highestRankedHand = findHighestRanking();
+		Map<Integer, List<RankedHand>> groupedByRank = groupByRank();
+		List<RankedHand> highestRankedHands = groupedByRank.get(highestRankedHand);
 		
-		if (highestRankedHand == 0) {
+		if (highestRankedHands.size() > 1) {
 			int highestCardValue = findHighestCardForAnyPlayer();
 			RankedHand cardsForPlayer = playersAndTheirHands.get(player);
 			
@@ -26,7 +29,22 @@ public class RoundWinners {
 			return false;
 		}
 		
-		return playersAndTheirHands.get(player).rank() == highestRankedHand;
+		return player.equals(highestRankedHands.get(0).player());
+	}
+
+	private Map<Integer, List<RankedHand>> groupByRank() {
+		Map<Integer, List<RankedHand>> grouped = new HashMap<Integer, List<RankedHand>>();
+		
+		for (RankedHand hand: playersAndTheirHands.values()) {
+			List<RankedHand> groupedValues = grouped.get(hand.rank());
+			if (groupedValues == null) {
+				groupedValues = new ArrayList<RankedHand>();
+				grouped.put(hand.rank(), groupedValues);
+			}
+			groupedValues.add(hand);
+		}
+		
+		return grouped;
 	}
 
 	private int findHighestCardForAnyPlayer() {
