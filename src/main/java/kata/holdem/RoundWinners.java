@@ -1,5 +1,6 @@
 package kata.holdem;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class RoundWinners {
 			int highestCardValue = findHighestCardForAnyPlayer();
 			RankedHand cardsForPlayer = playersAndTheirHands.get(player);
 			
-			for (Card c : cardsForPlayer.cards())
+			for (Card c : cardsForPlayer.rankedCards())
 				if (c.getNumericValue() == highestCardValue) return true;
 			return false;
 		}
@@ -31,15 +32,12 @@ public class RoundWinners {
 	private int findHighestCardForAnyPlayer() {
 		int highestCard = 2;
 		for (RankedHand hand : playersAndTheirHands.values())
-			for (Card card : hand.cards())
+			for (Card card : hand.rankedCards())
 				highestCard = Math.max(highestCard, card.getNumericValue());
 		return highestCard;
 	}
 
 	private int findHighestRanking() {
-		int highestRank = 0;
-		for (RankedHand ranking : playersAndTheirHands.values())
-			highestRank = Math.max(highestRank, ranking.rank());
-		return highestRank;
+		return Collections.max(playersAndTheirHands.values()).rank();
 	}
 }
