@@ -18,10 +18,4 @@ of this collection?
 
 - HandRanking class needs some work.
 
-- Tne RoundWinners class is a little improved - however I need to remove
-the highest card check - doesn't really belong here anymore - but should
-it all be handled by the rank? The part about the highest card is really
-resolving the best hand within the same rank - so perhaps is separate,
-but could be extracted into a JointHandResolver class, or something similar.
-
 - Make use of Google collections?
