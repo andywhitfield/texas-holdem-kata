@@ -1,6 +1,7 @@
 package kata.holdem.collections;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,5 +21,11 @@ public class Iterables {
 		}
 		
 		return grouped;
+	}
+
+	public static <T, V> Collection<V> select(Iterable<T> items, Action<T, V> selector) {
+		List<V> selected = new ArrayList<V>();
+		for (T item : items) selected.add(selector.action(item));
+		return selected;
 	}
 }
