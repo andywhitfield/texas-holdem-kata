@@ -35,4 +35,9 @@ public class RankedHand implements Comparable<RankedHand> {
 	public int compareTo(RankedHand o) {
 		return Integer.valueOf(rank()).compareTo(o.rank());
 	}
+	
+	@Override
+	public String toString() {
+		return player + ":rank=" + rank + "[" + allCards + "]";
+	}
 }
