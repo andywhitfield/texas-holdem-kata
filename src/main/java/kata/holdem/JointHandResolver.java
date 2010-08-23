@@ -1,10 +1,11 @@
 package kata.holdem;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class JointHandResolver {
-	public List<RankedHand> resolveHighestHands(List<RankedHand> identicallyRankedHands) {
+	public Collection<RankedHand> resolveHighestHands(Collection<RankedHand> identicallyRankedHands) {
 		if (identicallyRankedHands.size() == 1) return identicallyRankedHands;
 		
 		int highestCardValue = findHighestCard(identicallyRankedHands);
@@ -20,7 +21,7 @@ public class JointHandResolver {
 		return handsWithHighestCard;
 	}
 
-	private int findHighestCard(List<RankedHand> identicallyRankedHands) {
+	private int findHighestCard(Collection<RankedHand> identicallyRankedHands) {
 		int highestCard = 2;
 		for (RankedHand hand : identicallyRankedHands)
 			for (Card card : hand.rankedCards())

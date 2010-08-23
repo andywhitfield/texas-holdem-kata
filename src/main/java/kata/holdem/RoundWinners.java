@@ -20,13 +20,13 @@ public class RoundWinners {
 
 	public boolean isWinner(String player) {
 		int highestRankedHand = findHighestRanking();
-		Map<Integer, List<RankedHand>> groupedByRank = Iterables.groupBy(playersAndTheirHands.values(), new Action<RankedHand, Integer>() {
+		Map<Integer, Collection<RankedHand>> groupedByRank = Iterables.groupBy(playersAndTheirHands.values(), new Action<RankedHand, Integer>() {
 			@Override
 			public Integer action(RankedHand input) {
 				return input.rank();
 			}});
 		
-		List<RankedHand> highestRankedHands = groupedByRank.get(highestRankedHand);
+		Collection<RankedHand> highestRankedHands = groupedByRank.get(highestRankedHand);
 		highestRankedHands = new JointHandResolver().resolveHighestHands(highestRankedHands);
 		Collection<String> playersHavingWinningHand = Iterables.select(highestRankedHands, new Action<RankedHand, String>() {
 			@Override

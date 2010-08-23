@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Iterables {
-	public static <T, K> Map<K, List<T>> groupBy(Iterable<T> items, Action<T, K> keyMapper) {
-		Map<K, List<T>> grouped = new HashMap<K, List<T>>();
+	public static <T, K> Map<K, Collection<T>> groupBy(Iterable<T> items, Action<T, K> keyMapper) {
+		Map<K, Collection<T>> grouped = new HashMap<K, Collection<T>>();
 		
 		for (T item: items) {
 			K key = keyMapper.action(item);
-			List<T> groupedValues = grouped.get(key);
+			Collection<T> groupedValues = grouped.get(key);
 			if (groupedValues == null) {
 				groupedValues = new ArrayList<T>();
 				grouped.put(key, groupedValues);
