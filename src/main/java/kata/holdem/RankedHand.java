@@ -1,21 +1,33 @@
 package kata.holdem;
 
+import java.util.Arrays;
 import java.util.List;
+
+import kata.holdem.hands.HandIdentifier;
+import kata.holdem.hands.HighCardIdentifier;
+import kata.holdem.hands.PairIdentifier;
 
 public class RankedHand implements Comparable<RankedHand> {
 	public static RankedHand rank(String player, List<Card> cards) {
-		if (cards.equals(Cards.from("2d", "2c"))) return new RankedHand(player, 1 /* pair */, cards);
-		return new RankedHand(player, 0, cards);
+		List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
+				new PairIdentifier(), new HighCardIdentifier());
+		
+		for (HandIdentifier handIdentifier : handIdentifiers) {
+			RankedHand hand = handIdentifier.accept(player, cards);
+			if (hand != null) return hand;
+		}
+
+		throw new IllegalArgumentException("No ranking could be found for the cards " + cards + ", player " + player);
 	}
 
 	private final String player;
 	private final int rank;
-	private final List<Card> allCards;
+	private final List<Card> rankedCards;
 
-	private RankedHand(String player, int rank, List<Card> cards) {
+	public RankedHand(String player, int rank, List<Card> rankedCards) {
 		this.player = player;
 		this.rank = rank;
-		this.allCards = cards;
+		this.rankedCards = rankedCards;
 	}
 
 	public String player() {
@@ -27,7 +39,7 @@ public class RankedHand implements Comparable<RankedHand> {
 	}
 	
 	public List<Card> rankedCards() {
-		return this.allCards;
+		return this.rankedCards;
 	}
 
 	@Override
@@ -37,6 +49,6 @@ public class RankedHand implements Comparable<RankedHand> {
 	
 	@Override
 	public String toString() {
-		return player + ":rank=" + rank + "[" + allCards + "]";
+		return player + ":rank=" + rank + "[" + rankedCards + "]";
 	}
 }
