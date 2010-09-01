@@ -28,4 +28,10 @@ public class Iterables {
 		for (T item : items) selected.add(selector.action(item));
 		return selected;
 	}
+
+	public static <T> Collection<T> where(Iterable<T> items, Predicate<T> filterWherePredicate) {
+		List<T> selected = new ArrayList<T>();
+		for (T item : items) if (filterWherePredicate.evaluate(item)) selected.add(item);
+		return selected;
+	}
 }
