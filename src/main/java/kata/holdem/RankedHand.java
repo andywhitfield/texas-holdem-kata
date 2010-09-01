@@ -5,7 +5,6 @@ import java.util.List;
 public class RankedHand implements Comparable<RankedHand> {
 	public static RankedHand rank(String player, List<Card> cards) {
 		if (cards.equals(Cards.from("2d", "2c"))) return new RankedHand(player, 1 /* pair */, cards);
-		if (cards.equals(Cards.from("Ah", "Kc"))) return new RankedHand(player, 0 /* high card */, cards);
 		return new RankedHand(player, 0, cards);
 	}
 
