@@ -1,13 +1,20 @@
 package kata.holdem;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import kata.holdem.hands.HandIdentifier;
 import kata.holdem.hands.HighCardIdentifier;
 import kata.holdem.hands.PairIdentifier;
 
-public class RankedHand implements Comparable<RankedHand> {
+public class RankedHand {
+	public static final Comparator<RankedHand> compareByRank = new Comparator<RankedHand>() {
+		@Override
+		public int compare(RankedHand o1, RankedHand o2) {
+			return Integer.valueOf(o1.rank()).compareTo(o2.rank());
+		}};
+
 	public static RankedHand rank(String player, List<Card> cards) {
 		List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
 				new PairIdentifier(), new HighCardIdentifier());
@@ -42,11 +49,6 @@ public class RankedHand implements Comparable<RankedHand> {
 		return this.rankedCards;
 	}
 
-	@Override
-	public int compareTo(RankedHand o) {
-		return Integer.valueOf(rank()).compareTo(o.rank());
-	}
-	
 	@Override
 	public String toString() {
 		return player + ":rank=" + rank + "[" + rankedCards + "]";

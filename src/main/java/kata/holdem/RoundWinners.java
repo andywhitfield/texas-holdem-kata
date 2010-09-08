@@ -37,6 +37,6 @@ public class RoundWinners {
 	}
 
 	private int findHighestRanking() {
-		return Collections.max(playersAndTheirHands.values()).rank();
+		return Collections.max(playersAndTheirHands.values(), RankedHand.compareByRank).rank();
 	}
 }

@@ -2,6 +2,8 @@ package kata.holdem.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,5 +35,12 @@ public class Iterables {
 		List<T> selected = new ArrayList<T>();
 		for (T item : items) if (filterWherePredicate.evaluate(item)) selected.add(item);
 		return selected;
+	}
+
+	public static <T> List<T> sort(Iterable<T> collection, Comparator<T> sortBy) {
+		List<T> sorted = new ArrayList<T>();
+		for (T t : collection) sorted.add(t);
+		Collections.sort(sorted, sortBy);
+		return sorted;
 	}
 }

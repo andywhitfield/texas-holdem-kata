@@ -16,13 +16,35 @@ public class PairIdentifier implements HandIdentifier {
 		Map<Integer, Collection<Card>> groupedByValue = Iterables.groupBy(cards, new CardNumericValue());
 		Collection<Collection<Card>> pairs = Iterables.where(groupedByValue.values(), new ContainsAtLeastOnePair());
 		
-		return pairs.isEmpty() ? null : new RankedHand(player, 1, cards);
+		if (pairs.size() != 1) return null;
+		
+		// there's a pair - sort the remaining cards by value, returning the pair, followed by
+		// the cards in face value order
+		List<Card> remainingCards = Iterables.sort(
+				Iterables.where(cards, new IsNotIn(pairs.iterator().next())),
+				new FaceValueOrder());
+		
+		remainingCards.addAll(0, pairs.iterator().next());
+		return new RankedHand(player, 1, remainingCards);
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {
 		@Override
 		public boolean evaluate(Collection<Card> cardsWithTheSameValue) {
-			return cardsWithTheSameValue.size() >= 2;
+			return cardsWithTheSameValue.size() == 2;
+		}
+	}
+
+	private static class IsNotIn implements Predicate<Card> {
+		private final Collection<Card> inCards;
+
+		public IsNotIn(Collection<Card> inCards) {
+			this.inCards = inCards;
+		}
+
+		@Override
+		public boolean evaluate(Card item) {
+			return !inCards.contains(item);
 		}
 	}
 }
