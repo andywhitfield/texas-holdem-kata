@@ -20,12 +20,12 @@ public class PairIdentifier implements HandIdentifier {
 		
 		// there's a pair - sort the remaining cards by value, returning the pair, followed by
 		// the cards in face value order
-		List<Card> remainingCards = Iterables.sort(
+		List<Card> rankedCards = Iterables.sort(
 				Iterables.where(cards, new IsNotIn(pairs.iterator().next())),
 				new FaceValueOrder());
 		
-		remainingCards.addAll(0, pairs.iterator().next());
-		return new RankedHand(player, 1, remainingCards);
+		rankedCards.addAll(0, pairs.iterator().next());
+		return new RankedHand(player, 1, rankedCards);
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {
