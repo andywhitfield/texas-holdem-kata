@@ -17,6 +17,7 @@ public class PairIdentifierTest {
 	public void given_a_pair_should_accept() {
 		RankedHand ranked = new PairIdentifier().accept("p1", Cards.from("2c", "2d", "4c", "5c"));
 		Assert.assertNotNull(ranked);
-		Assert.assertEquals(Cards.from("2c", "2d", "5c", "4c"), ranked.rankedCards());
+		Assert.assertEquals(Cards.from("2c", "2d"), ranked.rankedCards());
+		Assert.assertEquals(Cards.from("5c", "4c"), ranked.kickers());
 	}
 }

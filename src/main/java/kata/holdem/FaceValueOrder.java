@@ -1,9 +1,7 @@
-package kata.holdem.hands;
+package kata.holdem;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
-import kata.holdem.Card;
 
 class FaceValueOrder implements Comparator<Card>, Serializable {
 	private static final long serialVersionUID = 5896746875768640262L;

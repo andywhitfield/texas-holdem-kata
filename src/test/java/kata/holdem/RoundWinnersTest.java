@@ -43,4 +43,28 @@ public class RoundWinnersTest {
 		Assert.assertTrue(winners.isWinner("player-one"));
 		Assert.assertFalse(winners.isWinner("player-two"));
 	}
+
+	@Test
+	public void given_both_players_with_a_pair_should_identify_winner_with_the_highest_pair() {
+		Map<String, List<Card>> playersAndTheirCards = new HashMap<String, List<Card>>();
+		
+		playersAndTheirCards.put("pair-of-3s", Cards.from("2d", "3c", "8h", "3s", "Ad", "Th", "5s"));
+		playersAndTheirCards.put("pair-of-10s", Cards.from("Tc", "Kc", "8h", "3s", "Ad", "Th", "5s"));
+		
+		RoundWinners winners = new RoundWinners(playersAndTheirCards);
+		Assert.assertTrue(winners.isWinner("pair-of-10s"));
+		Assert.assertFalse(winners.isWinner("pair-of-3s"));
+	}
+
+	@Test
+	public void given_both_players_with_the_same_pair_should_identify_winner_with_the_highest_kicker() {
+		Map<String, List<Card>> playersAndTheirCards = new HashMap<String, List<Card>>();
+		
+		playersAndTheirCards.put("7-kicker", Cards.from("2d", "7c", "5h", "3s", "Qd", "Th", "5s"));
+		playersAndTheirCards.put("jack-kicker", Cards.from("2c", "Jc", "5h", "3s", "Qd", "Th", "5s"));
+		
+		RoundWinners winners = new RoundWinners(playersAndTheirCards);
+		Assert.assertTrue(winners.isWinner("jack-kicker"));
+		Assert.assertFalse(winners.isWinner("7-kicker"));
+	}
 }

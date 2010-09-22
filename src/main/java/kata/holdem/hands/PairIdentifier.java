@@ -1,5 +1,6 @@
 package kata.holdem.hands;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +19,10 @@ public class PairIdentifier implements HandIdentifier {
 		
 		if (pairs.size() != 1) return null;
 		
-		// there's a pair - sort the remaining cards by value, returning the pair, followed by
-		// the cards in face value order
-		List<Card> rankedCards = Iterables.sort(
-				Iterables.where(cards, new IsNotIn(pairs.iterator().next())),
-				new FaceValueOrder());
-		
-		rankedCards.addAll(0, pairs.iterator().next());
-		return new RankedHand(player, 1, rankedCards);
+		// there's a pair
+		List<Card> thePair = new ArrayList<Card>(2);
+		thePair.addAll(pairs.iterator().next());
+		return new RankedHand(player, 1, thePair, Iterables.where(cards, new IsNotIn(pairs.iterator().next())));
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {
