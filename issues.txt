@@ -16,10 +16,6 @@ missing some abstraction here.
 RoundWinners class - as noted above, perhaps we need a better abstraction
 of this collection?
 
-- Pairs is getting close, however, I'm pretty sure some cases will fail,
-such as two players having pairs - we need to first check who has the
-highest pair, then if the same, go down to the kickers. More tests needed.
-
 - Does the PairIdentifier class need to also accept three of a kind/2 pairs
 etc? I don't think so, but we will need some tests around these conditions
 once there are three-of-a-kind/full house/etc... identifiers.
