@@ -67,4 +67,16 @@ public class RoundWinnersTest {
 		Assert.assertTrue(winners.isWinner("jack-kicker"));
 		Assert.assertFalse(winners.isWinner("7-kicker"));
 	}
+
+	@Test
+	public void given_identical_best_pair_should_both_be_winners() {
+		Map<String, List<Card>> playersAndTheirCards = new HashMap<String, List<Card>>();
+		
+		playersAndTheirCards.put("player-1", Cards.from("2d", "3c", "5h", "8s", "Qd", "Qh", "9c"));
+		playersAndTheirCards.put("player-2", Cards.from("2c", "3d", "5h", "8s", "Qd", "Qh", "9c"));
+		
+		RoundWinners winners = new RoundWinners(playersAndTheirCards);
+		Assert.assertTrue(winners.isWinner("player-1"));
+		Assert.assertTrue(winners.isWinner("player-2"));
+	}
 }

@@ -1,5 +1,6 @@
 package kata.holdem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -33,6 +34,7 @@ public class RankedHand {
 	private final int rank;
 	private final List<Card> rankedCards;
 	private final List<Card> kickers;
+	private final List<Card> allCards;
 
 	public RankedHand(String player, int rank, List<Card> rankedCards, Collection<Card> kickers) {
 		this.player = player;
@@ -41,6 +43,9 @@ public class RankedHand {
 		this.kickers = Iterables
 							.sort(kickers, new FaceValueOrder())
 							.subList(0, Math.max(0, Math.min(kickers.size(), 5 - rankedCards.size())));
+		this.allCards = new ArrayList<Card>(5);
+		this.allCards.addAll(rankedCards);
+		this.allCards.addAll(kickers);
 	}
 
 	public String player() {
@@ -59,6 +64,10 @@ public class RankedHand {
 		return this.kickers;
 	}
 
+	public List<Card> allCards() {
+		return this.allCards;
+	}
+	
 	@Override
 	public String toString() {
 		return player + ":rank=" + rank + "[" + rankedCards + " / " + kickers + "]";

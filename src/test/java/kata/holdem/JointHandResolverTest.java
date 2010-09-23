@@ -14,7 +14,8 @@ public class JointHandResolverTest {
 	public void given_one_hand_should_identify_as_the_highest() {
 		Collection<RankedHand> highestHands = Collections.singleton(RankedHand.rank("p1", Cards.from("6h", "6c")));
 		Collection<RankedHand> resolvedHighest = new JointHandResolver().resolveHighestHands(highestHands);
-		Assert.assertEquals(highestHands, resolvedHighest);
+		Assert.assertEquals(1, resolvedHighest.size());
+		Assert.assertSame(highestHands.iterator().next(), resolvedHighest.iterator().next());
 	}
 	
 	@Test

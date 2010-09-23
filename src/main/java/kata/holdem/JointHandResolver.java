@@ -2,50 +2,61 @@ package kata.holdem;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
+import java.util.Map;
+
+import kata.holdem.collections.Action;
+import kata.holdem.collections.Iterables;
+import kata.holdem.collections.Predicate;
 
 public class JointHandResolver {
 	public Collection<RankedHand> resolveHighestHands(Collection<RankedHand> identicallyRankedHands) {
-		if (identicallyRankedHands.size() == 1) return identicallyRankedHands;
-		
-		/*
-		 Considering both hands, we want to effectively walk down the cards, until we've exhausted all
-		 cards, or until we only have one RankedHand remaining...
-		 
-		 Consider these hands (however impossible):
-		 
-		 1) Three-Fives  9 4
-		 2) Three-Twos   a b
-		 3) Three-Fives  8 4
-		 4) Three-Fives  9 4
-		 
-		 Starting with the first card, all are '5' expect 2), so we can immediately remove
-		 2) from the potential winners.
-		 The 2nd and 3rd cards are all 5s, so we still have 3 potential winners.
-		 The 4th card sees 3) eliminated as it's lower than the other 2.
-		 The last cards of the remaining are both the same, so we're left with
-		 the joint winners 1) and 4).
-		 
-		 */
-		
-		int highestCardValue = findHighestCard(identicallyRankedHands);
-		List<RankedHand> handsWithHighestCard = new ArrayList<RankedHand>();
-		for (RankedHand cardsForPlayer : identicallyRankedHands) {
-			for (Card c : cardsForPlayer.rankedCards()) {
-				if (c.getNumericValue() == highestCardValue) {
-					handsWithHighestCard.add(cardsForPlayer);
-					break;
-				}
-			}
+		Collection<RankedHand> winners = new ArrayList<RankedHand>(identicallyRankedHands);
+		for (int i = 0; i < Math.min(5, winners.iterator().next().allCards().size()); i++) {
+			if (winners.size() == 1) break; // we have the winner
+			removeWhereCardIsNotTheWinner(winners, i);
 		}
-		return handsWithHighestCard;
+		return winners;
 	}
 
-	private int findHighestCard(Collection<RankedHand> identicallyRankedHands) {
-		int highestCard = 2;
-		for (RankedHand hand : identicallyRankedHands)
-			for (Card card : hand.rankedCards())
-				highestCard = Math.max(highestCard, card.getNumericValue());
-		return highestCard;
+	private void removeWhereCardIsNotTheWinner(Collection<RankedHand> hands, int cardIndex) {
+		Map<Integer, Collection<RankedHand>> cardValues = cardValuesFor(hands, cardIndex);
+		int highestCard = Collections.max(cardValues.keySet());
+		removeWhereCardValueIsNot(hands, cardIndex, highestCard);
+	}
+
+	private Map<Integer, Collection<RankedHand>> cardValuesFor(Collection<RankedHand> hands, int cardIndex) {
+		return Iterables.groupBy(hands, new CardsFaceValue(cardIndex));
+	}
+	
+	private void removeWhereCardValueIsNot(Collection<RankedHand> hands, int cardIndex, int highestCard) {
+		hands.removeAll(Iterables.where(hands, new CardsFaceValueIsNot(cardIndex, highestCard)));
+	}
+
+	private static class CardsFaceValue implements Action<RankedHand, Integer> {
+		private final int cardIndex;
+		public CardsFaceValue(int cardIndex) {
+			this.cardIndex = cardIndex;
+		}
+
+		@Override
+		public Integer action(RankedHand hand) {
+			return hand.allCards().get(cardIndex).getNumericValue();
+		}
+	}
+	
+	private static class CardsFaceValueIsNot implements Predicate<RankedHand> {
+		private final int cardIndex;
+		private final int highestCard;
+		
+		public CardsFaceValueIsNot(int cardIndex, int highestCard) {
+			this.cardIndex = cardIndex;
+			this.highestCard = highestCard;
+		}
+
+		@Override
+		public boolean evaluate(RankedHand hand) {
+			return hand.allCards().get(cardIndex).getNumericValue() != highestCard;
+		}
 	}
 }
