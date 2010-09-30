@@ -12,7 +12,8 @@ import kata.holdem.collections.Predicate;
 public class JointHandResolver {
 	public Collection<RankedHand> resolveHighestHands(Collection<RankedHand> identicallyRankedHands) {
 		Collection<RankedHand> winners = new ArrayList<RankedHand>(identicallyRankedHands);
-		for (int i = 0; i < Math.min(5, winners.iterator().next().allCards().size()); i++) {
+		int numberOfCards = Math.min(5, winners.iterator().next().allCards().size());
+		for (int i = 0; i < numberOfCards; i++) {
 			if (winners.size() == 1) break; // we have the winner
 			removeWhereCardIsNotTheWinner(winners, i);
 		}
