@@ -8,21 +8,22 @@ import java.util.Map;
 import java.util.Set;
 
 public class PokerRound {
+	private Map<String, HoleCards> playerInfo = new HashMap<String, HoleCards>();
+	
 	private List<String> players = new ArrayList<String>();
 	private Set<String> foldedPlayers = new HashSet<String>();
 	private Map<String, List<Card>> playersAndTheirCards = new HashMap<String, List<Card>>();
 
-	public PokerRound deal(String player) {
+	public PokerRound deal(String player, String holeCard1, String holeCard2) {
 		players.add(player);
 		playersAndTheirCards.put(player, new ArrayList<Card>());
+		playersAndTheirCards.get(player).addAll(Cards.from(holeCard1, holeCard2));
+		
+		playerInfo.put(player, new HoleCards(Card.from(holeCard1), Card.from(holeCard2)));
+		
 		return this;
 	}
-	
-	public PokerRound holeCards(String card1, String card2) {
-		playersAndTheirCards.get(players.get(players.size() - 1)).addAll(Cards.from(card1, card2));
-		return this;
-	}
-	
+		
 	public PokerRound dealFlop(String card1, String card2, String card3) {
 		for (List<Card> cards : playersAndTheirCards.values())
 			cards.addAll(Cards.from(card1, card2, card3));
