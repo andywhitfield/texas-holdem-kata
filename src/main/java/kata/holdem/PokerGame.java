@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PokerGame {
+	private final String[] players;
 	private List<PokerRound> rounds = new ArrayList<PokerRound>();
+
+	public PokerGame(String... players) {
+		this.players = players;
+	}
 	
 	public PokerRound newRound() {
-		PokerRound round = new PokerRound();
+		PokerRound round = new PokerRound(this);
 		rounds.add(round);
 		return round;
 	}
@@ -20,5 +25,9 @@ public class PokerGame {
 			allResults.append(round.results());
 		}
 		return allResults.toString();
+	}
+
+	public String[] getPlayers() {
+		return players;
 	}
 }

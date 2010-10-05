@@ -11,4 +11,8 @@ class HoleCards {
 	
 	public Card getHoleCard1() { return holeCard1; }
 	public Card getHoleCard2() { return holeCard2; }
+
+	public String cardsSummary() {
+		return getHoleCard1().toString() + " " + getHoleCard2();
+	}
 }

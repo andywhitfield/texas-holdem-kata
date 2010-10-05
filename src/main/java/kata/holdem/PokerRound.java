@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class PokerRound {
+	private final PokerGame game;
 	private Map<String, HoleCards> playerInfo = new HashMap<String, HoleCards>();
 	private List<Deal> deals = new ArrayList<Deal>();
 	
@@ -15,6 +16,10 @@ public class PokerRound {
 	private Set<String> foldedPlayers = new HashSet<String>();
 	private Map<String, List<Card>> playersAndTheirCards = new HashMap<String, List<Card>>();
 
+	public PokerRound(PokerGame game) {
+		this.game = game;
+	}
+	
 	public PokerRound deal(String player, String holeCard1, String holeCard2) {
 		players.add(player);
 		playersAndTheirCards.put(player, new ArrayList<Card>());
@@ -56,15 +61,18 @@ public class PokerRound {
 		RoundWinners winners = identifyWinners();
 		
 		StringBuilder results = new StringBuilder();
-		for (String player : players) {
+		for (String player : game.getPlayers()) {
 			if (results.length() > 0) results.append("\n");
 			
-			results.append(player).append(':');
-			for (Card card : playersAndTheirCards.get(player))
-				results.append(' ').append(card);
-			
-			if (foldedPlayers.contains(player)) results.append(" [folded]");
-			else if (winners.isWinner(player)) results.append(" (Winner)");
+			results.append(player).append(": ").append(playerInfo.get(player).cardsSummary());
+			for (Deal deal : deals) {
+				results.append(' ').append(deal.cardsSummary());
+				if (deal.folded(player)) {
+					results.append(" [folded]");
+					break;
+				}
+			}
+			if (winners.isWinner(player)) results.append(" (Winner)");
 		}
 		return results.toString();
 	}

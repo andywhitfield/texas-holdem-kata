@@ -16,4 +16,10 @@ class Deal {
 	public void fold(String player) { this.playersFolded.add(player); }
 	public boolean folded(String player) { return this.playersFolded.contains(player); }
 	public Set<String> getPlayersFolded() { return this.playersFolded; }
+
+	public String cardsSummary() {
+		StringBuilder summary = new StringBuilder();
+		for (Card c : cardsInDeal) summary.append(c).append(" ");
+		return summary.toString().trim();
+	}
 }
