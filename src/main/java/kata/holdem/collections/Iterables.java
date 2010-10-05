@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +43,39 @@ public class Iterables {
 		for (T t : collection) sorted.add(t);
 		Collections.sort(sorted, sortBy);
 		return sorted;
+	}
+
+	public static <T> Iterable<T> join(final Iterable<T> iterable1, final Iterable<T> iterable2) {
+		return new Iterable<T>() {
+			@Override
+			public Iterator<T> iterator() {
+				return new Iterator<T>() {
+					private boolean usingFirstIterator = true;
+					private Iterator<T> iterator1 = iterable1.iterator();
+					private Iterator<T> iterator2 = iterable2.iterator();
+					
+					@Override
+					public boolean hasNext() {
+						if (usingFirstIterator) {
+							boolean hasNext = iterator1.hasNext();
+							if (hasNext) return true;
+							usingFirstIterator = false;
+						}
+						return iterator2.hasNext();
+					}
+
+					@Override
+					public T next() {
+						return usingFirstIterator ? iterator1.next() : iterator2.next();
+					}
+
+					@Override
+					public void remove() {
+						if (usingFirstIterator) iterator1.remove();
+						else iterator2.remove();
+					}
+				};
+			}
+		};
 	}
 }

@@ -18,7 +18,7 @@ public class RankedHand {
 			return Integer.valueOf(o1.rank()).compareTo(o2.rank());
 		}};
 
-	public static RankedHand rank(String player, List<Card> cards) {
+	public static RankedHand rank(String player, Iterable<Card> cards) {
 		List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
 				new PairIdentifier(), new HighCardIdentifier());
 		

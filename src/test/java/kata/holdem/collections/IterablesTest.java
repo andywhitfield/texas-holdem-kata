@@ -2,6 +2,7 @@ package kata.holdem.collections;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,44 @@ public class IterablesTest {
 		Assert.assertEquals("1", index(items, 0));
 		Assert.assertEquals("2", index(items, 1));
 		Assert.assertEquals("3", index(items, 2));
+	}
+
+	@Test
+	public void given_two_collections_should_iterate_over_all_elements_after_joining() {
+		Iterable<String> strings = Iterables.join(Arrays.asList("1"), Arrays.asList("2", "3"));
+		int i = 1;
+		for (String s : strings) {
+			Assert.assertEquals(Integer.toString(i++), s);
+		}
+
+		strings = Iterables.join(Arrays.asList("1", "2"), Arrays.asList("3"));
+		i = 1;
+		for (String s : strings) {
+			Assert.assertEquals(Integer.toString(i++), s);
+		}
+	}
+
+	@Test
+	public void given_two_collections_with_one_empty_should_iterate_over_all_elements_of_other_collection() {
+		Iterable<String> strings = Iterables.join(Collections.<String>emptyList(), Arrays.asList("1", "2"));
+		int i = 1;
+		for (String s : strings) {
+			Assert.assertEquals(Integer.toString(i++), s);
+		}
+
+		strings = Iterables.join(Arrays.asList("1", "2"), Collections.<String>emptyList());
+		i = 1;
+		for (String s : strings) {
+			Assert.assertEquals(Integer.toString(i++), s);
+		}
+	}
+
+	@Test
+	public void given_two_collections_both_empty_should_not_iterate_over_anything() {
+		Iterable<String> strings = Iterables.join(Collections.<String>emptyList(), Collections.<String>emptyList());
+		for (String s : strings) {
+			Assert.fail("should be no items: " + s);
+		}
 	}
 	
 	private <T> T index(Collection<T> items, int index) {

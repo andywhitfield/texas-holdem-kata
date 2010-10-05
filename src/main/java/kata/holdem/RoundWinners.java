@@ -1,5 +1,6 @@
 package kata.holdem;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,6 +16,12 @@ public class RoundWinners {
 	public RoundWinners(Map<String, List<Card>> playersAndTheirCards) {
 		for (Map.Entry<String, List<Card>> entry : playersAndTheirCards.entrySet()) {
 			playersAndTheirHands.put(entry.getKey(), RankedHand.rank(entry.getKey(), entry.getValue()));
+		}
+	}
+
+	public RoundWinners(Map<String, HoleCards> playerInfo, List<Card> communityCards) {
+		for (Map.Entry<String, HoleCards> entry : playerInfo.entrySet()) {
+			playersAndTheirHands.put(entry.getKey(), RankedHand.rank(entry.getKey(), Iterables.join(Arrays.asList(entry.getValue().getHoleCard1(), entry.getValue().getHoleCard2()), communityCards)));
 		}
 	}
 

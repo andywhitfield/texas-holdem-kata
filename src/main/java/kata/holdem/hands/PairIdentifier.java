@@ -12,7 +12,7 @@ import kata.holdem.collections.Predicate;
 
 public class PairIdentifier implements HandIdentifier {
 	@Override
-	public RankedHand accept(String player, List<Card> cards) {
+	public RankedHand accept(String player, Iterable<Card> cards) {
 		// group cards by card value...
 		Map<Integer, Collection<Card>> groupedByValue = Iterables.groupBy(cards, new CardNumericValue());
 		Collection<Collection<Card>> pairs = Iterables.where(groupedByValue.values(), new ContainsAtLeastOnePair());
