@@ -12,12 +12,6 @@ import kata.holdem.collections.Iterables;
 
 public class RoundWinners {
 	private final Map<String, RankedHand> playersAndTheirHands = new HashMap<String, RankedHand>();
-	
-	public RoundWinners(Map<String, List<Card>> playersAndTheirCards) {
-		for (Map.Entry<String, List<Card>> entry : playersAndTheirCards.entrySet()) {
-			playersAndTheirHands.put(entry.getKey(), RankedHand.rank(entry.getKey(), entry.getValue()));
-		}
-	}
 
 	public RoundWinners(Map<String, HoleCards> playerInfo, List<Card> communityCards) {
 		for (Map.Entry<String, HoleCards> entry : playerInfo.entrySet()) {

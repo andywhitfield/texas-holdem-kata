@@ -10,7 +10,7 @@ public class PokerRound {
 	private Map<String, HoleCards> playerInfo = new HashMap<String, HoleCards>();
 	private List<Deal> deals = new ArrayList<Deal>();
 	
-	public PokerRound(PokerGame game) {
+	PokerRound(PokerGame game) {
 		this.game = game;
 	}
 	
@@ -40,7 +40,7 @@ public class PokerRound {
 	}
 
 	public String results() {
-		RoundWinners winners = identifyWinners();
+		RoundWinners winners = new RoundWinners(playerInfo, Deal.communityCards(deals));
 		
 		StringBuilder results = new StringBuilder();
 		for (String player : game.getPlayers()) {
@@ -57,9 +57,5 @@ public class PokerRound {
 			if (winners.isWinner(player)) results.append(" (Winner)");
 		}
 		return results.toString();
-	}
-
-	private RoundWinners identifyWinners() {
-		return new RoundWinners(playerInfo, Deal.communityCards(deals));
 	}
 }
