@@ -1,21 +1,3 @@
-- The interface has two related methods, 'deal' and 'holeCards' which
-mean having to keep track of the 'last player' in an instance variable.
-Could make this interface better.
-
-- Repetitive code for the dealTurn, dealRiver implementations.
-
-- The community cards are added to each players list of cards. Is the
-model correct? Perhaps we need to add the concept of a 'deal'.
-
-- PokerRound results method getting unwieldy.
-
-- PokerRound now has three collections containing players names. Possibly
-missing some abstraction here.
-
-- The map of players and their cards is passed from the round to the
-RoundWinners class - as noted above, perhaps we need a better abstraction
-of this collection?
-
 - Does the PairIdentifier class need to also accept three of a kind/2 pairs
 etc? I don't think so, but we will need some tests around these conditions
 once there are three-of-a-kind/full house/etc... identifiers.
