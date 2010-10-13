@@ -10,6 +10,7 @@ import kata.holdem.collections.Iterables;
 import kata.holdem.hands.HandIdentifier;
 import kata.holdem.hands.HighCardIdentifier;
 import kata.holdem.hands.PairIdentifier;
+import kata.holdem.hands.TwoPairIdentifier;
 
 public class RankedHand {
 	public static final Comparator<RankedHand> compareByRank = new Comparator<RankedHand>() {
@@ -20,7 +21,7 @@ public class RankedHand {
 
 	public static RankedHand rank(String player, Iterable<Card> cards) {
 		List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
-				new PairIdentifier(), new HighCardIdentifier());
+				new TwoPairIdentifier(), new PairIdentifier(), new HighCardIdentifier());
 		
 		for (HandIdentifier handIdentifier : handIdentifiers) {
 			RankedHand hand = handIdentifier.accept(player, cards);
