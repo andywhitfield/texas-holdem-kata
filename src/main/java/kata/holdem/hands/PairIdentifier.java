@@ -22,7 +22,7 @@ public class PairIdentifier implements HandIdentifier {
 		// there's a pair
 		List<Card> thePair = new ArrayList<Card>(2);
 		thePair.addAll(pairs.iterator().next());
-		return new RankedHand(player, 1, thePair, cards);
+		return new RankedHand(player, cards, 1, thePair);
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {

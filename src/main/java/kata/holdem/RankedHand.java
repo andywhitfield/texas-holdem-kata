@@ -38,7 +38,7 @@ public class RankedHand {
 	private final List<Card> kickers;
 	private final List<Card> allCards;
 
-	public RankedHand(String player, int rank, List<Card> rankedCards, Iterable<Card> allCards) {
+	public RankedHand(String player, Iterable<Card> allCards, int rank, List<Card> rankedCards) {
 		this.player = player;
 		this.rank = rank;
 		this.rankedCards = rankedCards;
