@@ -4,11 +4,7 @@
 etc? I don't think so, but we will need some tests around these conditions
 once there are three-of-a-kind/full house/etc... identifiers.
 
-- There is duplication between Pair and TwoPair - especially in the
-identification of the kickers - this could probably easily be moved to
-a common location.
-
-- Pair and TwoPair also contain similarities in the ContainsAtLeastOnePair
+- Pair and TwoPair contain similarities in the ContainsAtLeastOnePair
 class: can this be consolidated?
 
 - The tests are getting annoying to write: can this be improved.

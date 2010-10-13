@@ -22,26 +22,13 @@ public class PairIdentifier implements HandIdentifier {
 		// there's a pair
 		List<Card> thePair = new ArrayList<Card>(2);
 		thePair.addAll(pairs.iterator().next());
-		return new RankedHand(player, 1, thePair, Iterables.where(cards, new IsNotIn(pairs.iterator().next())));
+		return new RankedHand(player, 1, thePair, cards);
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {
 		@Override
 		public boolean evaluate(Collection<Card> cardsWithTheSameValue) {
 			return cardsWithTheSameValue.size() == 2;
-		}
-	}
-
-	private static class IsNotIn implements Predicate<Card> {
-		private final Collection<Card> inCards;
-
-		public IsNotIn(Collection<Card> inCards) {
-			this.inCards = inCards;
-		}
-
-		@Override
-		public boolean evaluate(Card item) {
-			return !inCards.contains(item);
 		}
 	}
 }

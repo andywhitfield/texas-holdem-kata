@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import kata.holdem.collections.Iterables;
+import kata.holdem.collections.Predicate;
 import kata.holdem.hands.HandIdentifier;
 import kata.holdem.hands.HighCardIdentifier;
 import kata.holdem.hands.PairIdentifier;
@@ -37,16 +38,17 @@ public class RankedHand {
 	private final List<Card> kickers;
 	private final List<Card> allCards;
 
-	public RankedHand(String player, int rank, List<Card> rankedCards, Collection<Card> kickers) {
+	public RankedHand(String player, int rank, List<Card> rankedCards, Iterable<Card> allCards) {
 		this.player = player;
 		this.rank = rank;
 		this.rankedCards = rankedCards;
+		Collection<Card> kickers = Iterables.where(allCards, new IsNotIn(rankedCards));
 		this.kickers = Iterables
 							.sort(kickers, new FaceValueOrder())
 							.subList(0, Math.max(0, Math.min(kickers.size(), 5 - rankedCards.size())));
 		this.allCards = new ArrayList<Card>(5);
 		this.allCards.addAll(rankedCards);
-		this.allCards.addAll(kickers);
+		this.allCards.addAll(this.kickers);
 	}
 
 	public String player() {
@@ -72,5 +74,18 @@ public class RankedHand {
 	@Override
 	public String toString() {
 		return player + ":rank=" + rank + "[" + rankedCards + " / " + kickers + "]";
+	}
+	
+	private static class IsNotIn implements Predicate<Card> {
+		private final Collection<Card> inCards;
+
+		public IsNotIn(Collection<Card> inCards) {
+			this.inCards = inCards;
+		}
+
+		@Override
+		public boolean evaluate(Card item) {
+			return !inCards.contains(item);
+		}
 	}
 }

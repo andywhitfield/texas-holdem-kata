@@ -30,26 +30,13 @@ public class TwoPairIdentifier implements HandIdentifier {
 			}});
 		thePairs.addAll(sortedPairs.get(0).getValue());
 		thePairs.addAll(sortedPairs.get(1).getValue());
-		return new RankedHand(player, 1, thePairs, Iterables.where(cards, new IsNotIn(thePairs)));
+		return new RankedHand(player, 1, thePairs, cards);
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Map.Entry<Integer, Collection<Card>>> {
 		@Override
 		public boolean evaluate(Map.Entry<Integer, Collection<Card>> cardsWithTheSameValue) {
 			return cardsWithTheSameValue.getValue().size() == 2;
-		}
-	}
-
-	private static class IsNotIn implements Predicate<Card> {
-		private final Collection<Card> inCards;
-
-		public IsNotIn(Collection<Card> inCards) {
-			this.inCards = inCards;
-		}
-
-		@Override
-		public boolean evaluate(Card item) {
-			return !inCards.contains(item);
 		}
 	}
 }
