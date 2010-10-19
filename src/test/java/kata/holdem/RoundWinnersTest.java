@@ -85,7 +85,7 @@ public class RoundWinnersTest {
 		Map<String, HoleCards> playersAndTheirCards = new HashMap<String, HoleCards>();
 		
 		playersAndTheirCards.put("player-1", new HoleCards(Card.from("2d"), Card.from("6c")));
-		playersAndTheirCards.put("player-2", new HoleCards(Card.from("2c"), Card.from("Ah")));
+		playersAndTheirCards.put("player-2", new HoleCards(Card.from("6d"), Card.from("Ah")));
 		
 		RoundWinners winners = new RoundWinners(playersAndTheirCards, Cards.from("2h", "6s", "Qd", "3h", "Tc"));
 		Assert.assertTrue(winners.isWinner("player-1"));
@@ -96,7 +96,7 @@ public class RoundWinnersTest {
 	public void given_two_pairs_over_a_high_card_should_identify_two_pairs_as_winner() {
 		Map<String, HoleCards> playersAndTheirCards = new HashMap<String, HoleCards>();
 		
-		playersAndTheirCards.put("player-1", new HoleCards(Card.from("2d"), Card.from("6c")));
+		playersAndTheirCards.put("player-1", new HoleCards(Card.from("3d"), Card.from("6c")));
 		playersAndTheirCards.put("player-2", new HoleCards(Card.from("2c"), Card.from("Ah")));
 		
 		RoundWinners winners = new RoundWinners(playersAndTheirCards, Cards.from("3h", "6s", "Qd", "5c", "Tc"));
