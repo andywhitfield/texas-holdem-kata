@@ -2,7 +2,6 @@ package kata.holdem.hands;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import kata.holdem.Card;
@@ -20,9 +19,7 @@ public class PairIdentifier implements HandIdentifier {
 		if (pairs.size() != 1) return null;
 		
 		// there's a pair
-		List<Card> thePair = new ArrayList<Card>(2);
-		thePair.addAll(pairs.iterator().next());
-		return new RankedHand(player, cards, 1, thePair);
+		return new RankedHand(player, cards, 1, new ArrayList<Card>(pairs.iterator().next()));
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {
