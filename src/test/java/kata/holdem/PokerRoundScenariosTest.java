@@ -15,8 +15,10 @@ public class PokerRoundScenariosTest {
     @Parameterized.Parameters
     public static Collection<Object[]> rounds() {
         return Arrays.asList(new Object[][] {
-                { Round.scenario("player folds", "john 4d 2d", "jane Th 3c").deal("Ks 8d 4d").fold("jane")
-                	.expect("john: 4d 2d Ks 8d 4d (Winner)\njane: Th 3c Ks 8d 4d [folded]") }
+        	{ Round.scenario("player folds", "john 4d 2d", "jane Th 3c").deal("Ks 8d 4d").fold("jane")
+            	.expect("john: 4d 2d Ks 8d 4d (Winner)\njane: Th 3c Ks 8d 4d [folded]") },
+            { Round.scenario("high card", "john 4d 2d", "jane Ah 3c").deal("Qc Td 5s 6c 9h")
+            	.expect("john: 4d 2d Qc Td 5s 6c 9h\njane: Ah 3c Qc Td 5s 6c 9h (Winner)") }
         });
     }
 
@@ -61,6 +63,7 @@ public class PokerRoundScenariosTest {
     	public Round deal(String cards) {
     		String[] card = cards.split(" ");
     		if (card.length == 3) round.dealFlop(card[0], card[1], card[2]);
+    		else if (card.length == 5) round.dealFlop(card[0], card[1], card[2]).dealTurn(card[3]).dealRiver(card[4]);
     		else if (dealtTurn) round.dealRiver(cards);
     		else { round.dealTurn(cards); dealtTurn = true; }
     		return this;
