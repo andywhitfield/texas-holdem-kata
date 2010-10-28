@@ -30,7 +30,7 @@ public class TwoPairIdentifier implements HandIdentifier {
 			}});
 		thePairs.addAll(sortedPairs.get(0).getValue());
 		thePairs.addAll(sortedPairs.get(1).getValue());
-		return new RankedHand(player, cards, 2, thePairs);
+		return new RankedHand(player, cards, this, thePairs);
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Map.Entry<Integer, Collection<Card>>> {

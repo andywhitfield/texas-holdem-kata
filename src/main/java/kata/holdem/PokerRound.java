@@ -39,21 +39,36 @@ public class PokerRound {
 		return this;
 	}
 
-	public String results() {
+	@Override
+	public String toString() {
 		RoundWinners winners = new RoundWinners(playerInfo, Deal.communityCards(deals));
 		
 		StringBuilder results = new StringBuilder();
 		for (String player : game.getPlayers()) {
 			if (results.length() > 0) results.append("\n");
+
+			boolean playerFolded = false;
 			
 			results.append(player).append(": ").append(playerInfo.get(player).cardsSummary());
 			for (Deal deal : deals) {
 				results.append(' ').append(deal.cardsSummary());
 				if (deal.folded(player)) {
 					results.append(" [folded]");
+					playerFolded = true;
 					break;
 				}
 			}
+			
+			// if player folded, no need to rank their hand as they can't possibly be a winner.
+			if (playerFolded) continue;
+			
+			RankedHand rankedHand = winners.getRankedHand(player);
+			results.append(" [").append(rankedHand.rankDescription());
+			if (!rankedHand.rankedCards().isEmpty())
+				results.append(' ').append(Cards.toString(rankedHand.rankedCards()));
+			if (!rankedHand.kickers().isEmpty())
+				results.append(" Kicker(s) ").append(Cards.toString(rankedHand.kickers()));
+			results.append(']');
 			if (winners.isWinner(player)) results.append(" (Winner)");
 		}
 		return results.toString();

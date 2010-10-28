@@ -19,6 +19,8 @@ public class RoundWinners {
 		}
 	}
 
+	public RankedHand getRankedHand(String player) { return playersAndTheirHands.get(player); }
+	
 	public boolean isWinner(String player) {
 		int highestRankedHand = findHighestRanking();
 		Map<Integer, Collection<RankedHand>> groupedByRank = Iterables.groupBy(playersAndTheirHands.values(), new Action<RankedHand, Integer>() {

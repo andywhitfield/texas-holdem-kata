@@ -22,7 +22,7 @@ public class PokerGame {
 		for (PokerRound round : rounds) {
 			if (allResults.length() > 0)
 				allResults.append('\n');
-			allResults.append(round.results());
+			allResults.append(round);
 		}
 		return allResults.toString();
 	}

@@ -20,10 +20,10 @@ public class RankedHand {
 			return Integer.valueOf(o1.rank()).compareTo(o2.rank());
 		}};
 
-	public static RankedHand rank(String player, Iterable<Card> cards) {
-		List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
+	private static final List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
 				new TwoPairIdentifier(), new PairIdentifier(), new HighCardIdentifier());
 		
+	public static RankedHand rank(String player, Iterable<Card> cards) {
 		for (HandIdentifier handIdentifier : handIdentifiers) {
 			RankedHand hand = handIdentifier.accept(player, cards);
 			if (hand != null) return hand;
@@ -33,14 +33,23 @@ public class RankedHand {
 	}
 
 	private final String player;
-	private final int rank;
+	private final HandIdentifier hand;
+	private final int rankIndex;
 	private final List<Card> rankedCards;
 	private final List<Card> kickers;
 	private final List<Card> allCards;
 
-	public RankedHand(String player, Iterable<Card> allCards, int rank, List<Card> rankedCards) {
+	public RankedHand(String player, Iterable<Card> allCards, HandIdentifier hand, List<Card> rankedCards) {
 		this.player = player;
-		this.rank = rank;
+		this.hand = hand;
+		int rank = 0;
+		for (int i = 0; i < handIdentifiers.size(); i++) {
+			if (hand.getClass().equals(handIdentifiers.get(i).getClass())) {
+				rank = handIdentifiers.size() - i;
+				break;
+			}
+		}
+		this.rankIndex = rank;
 		this.rankedCards = rankedCards;
 		Collection<Card> kickers = Iterables.where(allCards, new IsNotIn(rankedCards));
 		this.kickers = Iterables
@@ -56,7 +65,7 @@ public class RankedHand {
 	}
 	
 	public int rank() {
-		return this.rank;
+		return this.rankIndex;
 	}
 	
 	public List<Card> rankedCards() {
@@ -70,10 +79,27 @@ public class RankedHand {
 	public List<Card> allCards() {
 		return this.allCards;
 	}
+
+	public String rankDescription() {
+		String handIdentifier = hand.getClass().getSimpleName();
+		if (handIdentifier.endsWith("Identifier")) handIdentifier = handIdentifier.substring(0, handIdentifier.length() - "Identifier".length());
+    	StringBuilder sb = new StringBuilder();
+    	boolean isFirstChar = true;
+    	for (char c : handIdentifier.toCharArray()) {
+    		if (isFirstChar) {
+        		sb.append(c);
+    			isFirstChar = false;
+    			continue;
+    		}
+    		if (Character.isUpperCase(c)) sb.append(' ');
+    		sb.append(c);
+    	}
+    	return sb.toString();
+	}
 	
 	@Override
 	public String toString() {
-		return player + ":rank=" + rank + "[" + rankedCards + " / " + kickers + "]";
+		return player + ":rank=" + rankDescription() + "[" + rankedCards + " / " + kickers + "]";
 	}
 	
 	private static class IsNotIn implements Predicate<Card> {

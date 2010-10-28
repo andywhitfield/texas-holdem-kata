@@ -19,7 +19,7 @@ public class PairIdentifier implements HandIdentifier {
 		if (pairs.size() != 1) return null;
 		
 		// there's a pair
-		return new RankedHand(player, cards, 1, new ArrayList<Card>(pairs.iterator().next()));
+		return new RankedHand(player, cards, this, new ArrayList<Card>(pairs.iterator().next()));
 	}
 
 	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {

@@ -12,7 +12,7 @@ public class PokerRoundTest {
 		round.dealTurn("6h");
 		round.dealRiver("Jh");
 		
-		Assert.assertEquals("john: 4d 2d Ks Kd 9d 6h Jh (Winner)", round.results());
+		Assert.assertEquals("john: 4d 2d Ks Kd 9d 6h Jh [Pair Ks Kd Kicker(s) Jh 9d 6h] (Winner)", round.toString());
 	}
 	
 	@Test
@@ -23,8 +23,8 @@ public class PokerRoundTest {
 		round.dealFlop("Ks", "8d", "4d");
 		round.fold("jane");
 		
-		Assert.assertEquals("john: 4d 2d Ks 8d 4d (Winner)\n" +
-				"jane: Th 3c Ks 8d 4d [folded]", round.results());
+		Assert.assertEquals("john: 4d 2d Ks 8d 4d [Pair 4d 4d Kicker(s) Ks 8d 2d] (Winner)\n" +
+				"jane: Th 3c Ks 8d 4d [folded]", round.toString());
 	}
 	
 	@Test
@@ -37,7 +37,7 @@ public class PokerRoundTest {
 			.dealTurn("6c")
 			.dealRiver("9h");
 		
-		Assert.assertEquals("john: 4d 2d Qc Td 5s 6c 9h\n" +
-				"jane: Ah 3c Qc Td 5s 6c 9h (Winner)", round.results());
+		Assert.assertEquals("john: 4d 2d Qc Td 5s 6c 9h [High Card Kicker(s) Qc Td 9h 6c 5s]\n" +
+				"jane: Ah 3c Qc Td 5s 6c 9h [High Card Kicker(s) Ah Qc Td 9h 6c] (Winner)", round.toString());
 	}
 }

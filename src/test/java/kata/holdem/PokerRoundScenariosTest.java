@@ -15,10 +15,17 @@ public class PokerRoundScenariosTest {
     @Parameterized.Parameters
     public static Collection<Object[]> rounds() {
         return Arrays.asList(new Object[][] {
-        	{ Round.scenario("player folds", "john 4d 2d", "jane Th 3c").deal("Ks 8d 4d").fold("jane")
-            	.expect("john: 4d 2d Ks 8d 4d (Winner)\njane: Th 3c Ks 8d 4d [folded]") },
+        	{ Round.scenario("player folds", "john 4h 2d", "jane Th 3c").deal("Ks 8d 4d").fold("jane")
+            	.expect("john: 4h 2d Ks 8d 4d [Pair 4h 4d Kicker(s) Ks 8d 2d] (Winner)\n" +
+            			"jane: Th 3c Ks 8d 4d [folded]") },
+            	
             { Round.scenario("high card", "john 4d 2d", "jane Ah 3c").deal("Qc Td 5s 6c 9h")
-            	.expect("john: 4d 2d Qc Td 5s 6c 9h\njane: Ah 3c Qc Td 5s 6c 9h (Winner)") }
+            	.expect("john: 4d 2d Qc Td 5s 6c 9h [High Card Kicker(s) Qc Td 9h 6c 5s]\n" +
+            			"jane: Ah 3c Qc Td 5s 6c 9h [High Card Kicker(s) Ah Qc Td 9h 6c] (Winner)") },
+
+            { Round.scenario("pair over high card", "john 4d 2d", "jane Ah 3c").deal("Qc Td 4s 6c 9h")
+            	.expect("john: 4d 2d Qc Td 4s 6c 9h [Pair 4d 4s Kicker(s) Qc Td 9h] (Winner)\n" +
+            			"jane: Ah 3c Qc Td 4s 6c 9h [High Card Kicker(s) Ah Qc Td 9h 6c]") }
         });
     }
 
@@ -29,7 +36,7 @@ public class PokerRoundScenariosTest {
 
     @Test
     public void verify_rounds() {
-    	Assert.assertEquals(round.getDescription(), round.getExpectedResult(), round.getRound().results());
+    	Assert.assertEquals(round.getDescription(), round.getExpectedResult(), round.getRound().toString());
     }
     
     private static class Round {

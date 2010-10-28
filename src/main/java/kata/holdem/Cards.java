@@ -9,4 +9,13 @@ public class Cards {
 		for (String c : card) cards.add(Card.from(c));
 		return cards;
 	}
+
+	public static String toString(Iterable<Card> cards) {
+		StringBuilder sb = new StringBuilder();
+		for (Card card : cards) {
+			if (sb.length() > 0) sb.append(' ');
+			sb.append(card);
+		}
+		return sb.toString();
+	}
 }
