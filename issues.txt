@@ -4,5 +4,5 @@
 etc? I don't think so, but we will need some tests around these conditions
 once there are three-of-a-kind/full house/etc... identifiers.
 
-- Pair and TwoPair contain similarities in the ContainsAtLeastOnePair
-class: can this be consolidated?
+- Pair, TwoPair and Three-of-a-kind contain similarities in the ContainsAtLeastOnePair
+class and also somewhat in the accept implementations: can this be consolidated?
