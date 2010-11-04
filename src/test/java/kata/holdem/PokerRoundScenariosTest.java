@@ -25,7 +25,23 @@ public class PokerRoundScenariosTest {
 
             { Round.scenario("pair over high card", "john 4d 2d", "jane Ah 3c").deal("Qc Td 4s 6c 9h")
             	.expect("john: 4d 2d Qc Td 4s 6c 9h [Pair 4d 4s Kicker(s) Qc Td 9h] (Winner)\n" +
-            			"jane: Ah 3c Qc Td 4s 6c 9h [High Card Kicker(s) Ah Qc Td 9h 6c]") }
+            			"jane: Ah 3c Qc Td 4s 6c 9h [High Card Kicker(s) Ah Qc Td 9h 6c]") },
+
+            { Round.scenario("three-of-a-kind beats high card", "john 2h 2d", "jane Ah 3c").deal("2c Td 4s 6c 9h")
+            	.expect("john: 2h 2d 2c Td 4s 6c 9h [Three Of A Kind 2h 2d 2c Kicker(s) Td 9h] (Winner)\n" +
+            			"jane: Ah 3c 2c Td 4s 6c 9h [High Card Kicker(s) Ah Td 9h 6c 4s]") },
+
+            { Round.scenario("three-of-a-kind beats pair", "john Ah 2c", "jane 2h 2d").deal("Td 4s 6c 9h 2s")
+            	.expect("john: Ah 2c Td 4s 6c 9h 2s [Pair 2c 2s Kicker(s) Ah Td 9h]\n" +
+            			"jane: 2h 2d Td 4s 6c 9h 2s [Three Of A Kind 2h 2d 2s Kicker(s) Td 9h] (Winner)") },
+
+	        { Round.scenario("three-of-a-kind beats two-pair", "john 2h 2d", "jane Ah 2c").deal("As Qc Td 4s 2s")
+	        	.expect("john: 2h 2d As Qc Td 4s 2s [Three Of A Kind 2h 2d 2s Kicker(s) As Qc Td] (Winner)\n" +
+	        			"jane: Ah 2c As Qc Td 4s 2s [Two Pair Ah As 2c 2s Kicker(s) Qc]") },
+
+            { Round.scenario("highest three-of-a-kind wins", "john 2h 2d", "jane Ah Ac").deal("Qc Td 4s Ad 2s")
+            	.expect("john: 2h 2d Qc Td 4s Ad 2s [Three Of A Kind 2h 2d 2s Kicker(s) Ad Qc]\n" +
+            			"jane: Ah Ac Qc Td 4s Ad 2s [Three Of A Kind Ah Ac Ad Kicker(s) Qc Td] (Winner)") }
         });
     }
 
