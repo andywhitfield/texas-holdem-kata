@@ -6,5 +6,3 @@ once there are three-of-a-kind/full house/etc... identifiers.
 
 - Pair and TwoPair contain similarities in the ContainsAtLeastOnePair
 class: can this be consolidated?
-
-- The tests are getting annoying to write: can this be improved.
