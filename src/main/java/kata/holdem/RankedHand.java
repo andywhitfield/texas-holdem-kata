@@ -11,6 +11,7 @@ import kata.holdem.collections.Predicate;
 import kata.holdem.hands.HandIdentifier;
 import kata.holdem.hands.HighCardIdentifier;
 import kata.holdem.hands.PairIdentifier;
+import kata.holdem.hands.ThreeOfAKindIdentifier;
 import kata.holdem.hands.TwoPairIdentifier;
 
 public class RankedHand {
@@ -21,7 +22,10 @@ public class RankedHand {
 		}};
 
 	private static final List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
-				new TwoPairIdentifier(), new PairIdentifier(), new HighCardIdentifier());
+				new ThreeOfAKindIdentifier(),
+				new TwoPairIdentifier(),
+				new PairIdentifier(),
+				new HighCardIdentifier());
 		
 	public static RankedHand rank(String player, Iterable<Card> cards) {
 		for (HandIdentifier handIdentifier : handIdentifiers) {
