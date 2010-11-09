@@ -14,18 +14,18 @@ public class PairIdentifier implements HandIdentifier {
 	public RankedHand accept(String player, Iterable<Card> cards) {
 		// group cards by card value...
 		Map<Integer, Collection<Card>> groupedByValue = Iterables.groupBy(cards, new CardNumericValue());
-		Collection<Collection<Card>> pairs = Iterables.where(groupedByValue.values(), new ContainsAtLeastOnePair());
+		Collection<Map.Entry<Integer, Collection<Card>>> pairs = Iterables.where(groupedByValue.entrySet(), new ContainsAtLeastOnePair());
 		
 		if (pairs.size() != 1) return null;
 		
 		// there's a pair
-		return new RankedHand(player, cards, this, new ArrayList<Card>(pairs.iterator().next()));
+		return new RankedHand(player, cards, this, new ArrayList<Card>(pairs.iterator().next().getValue()));
 	}
 
-	private static class ContainsAtLeastOnePair implements Predicate<Collection<Card>> {
+	private static class ContainsAtLeastOnePair implements Predicate<Map.Entry<Integer, Collection<Card>>> {
 		@Override
-		public boolean evaluate(Collection<Card> cardsWithTheSameValue) {
-			return cardsWithTheSameValue.size() == 2;
+		public boolean evaluate(Map.Entry<Integer, Collection<Card>> cardsWithTheSameValue) {
+			return cardsWithTheSameValue.getValue().size() == 2;
 		}
 	}
 }
