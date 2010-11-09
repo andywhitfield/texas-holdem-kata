@@ -10,14 +10,13 @@ import java.util.Map.Entry;
 import kata.holdem.Card;
 import kata.holdem.RankedHand;
 import kata.holdem.collections.Iterables;
-import kata.holdem.collections.Predicate;
 
 public class TwoPairIdentifier implements HandIdentifier {
 	@Override
 	public RankedHand accept(String player, Iterable<Card> cards) {
 		// group cards by card value...
 		Map<Integer, Collection<Card>> groupedByValue = Iterables.groupBy(cards, new CardNumericValue());
-		Collection<Map.Entry<Integer, Collection<Card>>> pairs = Iterables.where(groupedByValue.entrySet(), new ContainsAtLeastOnePair());
+		Collection<Map.Entry<Integer, Collection<Card>>> pairs = Iterables.where(groupedByValue.entrySet(), new ContainsSameValuedCards(2));
 		
 		if (pairs.size() < 2) return null;
 		
@@ -31,12 +30,5 @@ public class TwoPairIdentifier implements HandIdentifier {
 		thePairs.addAll(sortedPairs.get(0).getValue());
 		thePairs.addAll(sortedPairs.get(1).getValue());
 		return new RankedHand(player, cards, this, thePairs);
-	}
-
-	private static class ContainsAtLeastOnePair implements Predicate<Map.Entry<Integer, Collection<Card>>> {
-		@Override
-		public boolean evaluate(Map.Entry<Integer, Collection<Card>> cardsWithTheSameValue) {
-			return cardsWithTheSameValue.getValue().size() == 2;
-		}
 	}
 }
