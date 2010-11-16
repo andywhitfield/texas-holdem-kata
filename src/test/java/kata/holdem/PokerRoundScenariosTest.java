@@ -41,7 +41,28 @@ public class PokerRoundScenariosTest {
 
             { Round.scenario("highest three-of-a-kind wins", "john 2h 2d", "jane Ah Ac").deal("Qc Td 4s Ad 2s")
             	.expect("john: 2h 2d Qc Td 4s Ad 2s [Three Of A Kind 2h 2d 2s Kicker(s) Ad Qc]\n" +
-            			"jane: Ah Ac Qc Td 4s Ad 2s [Three Of A Kind Ah Ac Ad Kicker(s) Qc Td] (Winner)") }
+            			"jane: Ah Ac Qc Td 4s Ad 2s [Three Of A Kind Ah Ac Ad Kicker(s) Qc Td] (Winner)") },
+
+	        { Round.scenario("straight beats high card", "john 2h 3d", "jane Ah 9c").deal("6c 5d 4s Kc Th")
+	        	.expect("john: 2h 3d 6c 5d 4s Kc Th [Straight 2h 3d 4s 5d 6c] (Winner)\n" +
+	        			"jane: Ah 9c 6c 5d 4s Kc Th [High Card Kicker(s) Ah Kc Th 9c 6c]") },
+	
+	        { Round.scenario("straight beats pair", "john Kh 2c", "jane 2h 3d").deal("6c 5d 4s Kc Th")
+	        	.expect("john: Kh 2c 6c 5d 4s Kc Th [Pair Kh Kc Kicker(s) Th 6c 5d]\n" +
+	        			"jane: 2h 3d 6c 5d 4s Kc Th [Straight 2h 3d 4s 5d 6c] (Winner)") },
+	
+	        { Round.scenario("straight beats two-pair", "john 2h 3d", "jane 6h 4c").deal("6c 5d 4s Kc Th")
+	        	.expect("john: 2h 3d 6c 5d 4s Kc Th [Straight 2h 3d 4s 5d 6c] (Winner)\n" +
+	        			"jane: 6h 4c 6c 5d 4s Kc Th [Two Pair 6h 6c 4c 4s Kicker(s) Kc]") },
+	
+	        { Round.scenario("straight beats three-of-a-kind", "john 2h 3d", "jane 5h 5c").deal("6c 5d 4s Kc Th")
+	        	.expect("john: 2h 3d 6c 5d 4s Kc Th [Straight 2h 3d 4s 5d 6c] (Winner)\n" +
+	        			"jane: 5h 5c 6c 5d 4s Kc Th [Three Of A Kind 5h 5c 5d Kicker(s) Kc Th]") },
+	
+	        { Round.scenario("highest straight wins", "john 2h 3d", "jane 8h Ac").deal("6c 5d 4s 7c Th")
+	        	.expect("john: 2h 3d 6c 5d 4s 7c Th [Straight 3d 4s 5d 6c 7c]\n" +
+	        			"jane: 8h Ac 6c 5d 4s 7c Th [Straight 4s 5d 6c 7c 8h] (Winner)") }
+
         });
     }
 
