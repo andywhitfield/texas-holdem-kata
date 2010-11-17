@@ -11,13 +11,14 @@ import kata.holdem.RankedHand;
 import kata.holdem.collections.Action;
 import kata.holdem.collections.Iterables;
 import kata.holdem.collections.Predicate;
+import kata.holdem.hands.Hands.SameValueMatchType;
 
 public class StraightIdentifier implements HandIdentifier {
 	private static final int aceValue = Card.from("Ah").getNumericValue();
 
 	@Override
 	public RankedHand accept(String player, Iterable<Card> cards) {
-		List<Map.Entry<Integer, Collection<Card>>> inOrder = Hands.existSameValuedCards(cards, 1);
+		List<Map.Entry<Integer, Collection<Card>>> inOrder = Hands.existSameValuedCards(cards, 1, SameValueMatchType.Minimum);
 		RankedHand straight = findStraight(player, cards, inOrder);
 		if (straight != null) return straight;
 		return findStraight(player, cards, aceLow(inOrder));
