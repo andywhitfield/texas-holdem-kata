@@ -69,7 +69,11 @@ public class PokerRoundScenariosTest {
 	        	        
 	        { Round.scenario("6-high straight beats ace-low", "john 7h Ac", "jane 6d 6c").deal("Kc 5d 4s 3c 2h")
 	        	.expect("john: 7h Ac Kc 5d 4s 3c 2h [Straight 5d 4s 3c 2h Ac]\n" +
-	        			"jane: 6d 6c Kc 5d 4s 3c 2h [Straight 6d 5d 4s 3c 2h] (Winner)") }
+	        			"jane: 6d 6c Kc 5d 4s 3c 2h [Straight 6d 5d 4s 3c 2h] (Winner)") },
+	        	        
+	        { Round.scenario("hand with straight and three-of-a-kind should beat three-of-a-kind", "john 7h Ac", "jane 4d 6c").deal("3c 5d 3s 3h 2h")
+	        	.expect("john: 7h Ac 3c 5d 3s 3h 2h [Three Of A Kind 3c 3s 3h Kicker(s) Ac 7h]\n" +
+	        			"jane: 4d 6c 3c 5d 3s 3h 2h [Straight 6c 5d 4d 3c 2h] (Winner)") }
         });
     }
 
