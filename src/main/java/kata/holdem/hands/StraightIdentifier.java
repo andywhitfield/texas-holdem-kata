@@ -15,13 +15,22 @@ public class StraightIdentifier implements HandIdentifier {
 	@Override
 	public RankedHand accept(String player, Iterable<Card> cards) {
 		List<Map.Entry<Integer, Collection<Card>>> inOrder = Hands.existSameValuedCards(cards, 1);
-		while (inOrder.size() >= 5) {
-			if (inOrder.get(0).getKey() - 4 == inOrder.get(4).getKey())
-				return new RankedHand(player, cards, this, cardsFrom(inOrder));
-			inOrder.remove(0);
+		RankedHand straight = findStraight(player, cards, inOrder);
+		if (straight != null) return straight;
+		return findStraight(player, cards, aceLow(inOrder));
+	}
+
+	private RankedHand findStraight(String player, Iterable<Card> cards, List<Map.Entry<Integer, Collection<Card>>> cardsByValue) {
+		while (cardsByValue.size() >= 5) {
+			if (cardsByValue.get(0).getKey() - 4 == cardsByValue.get(4).getKey())
+				return new RankedHand(player, cards, this, cardsFrom(cardsByValue));
+			cardsByValue.remove(0);
 		}
-		
 		return null;
+	}
+	
+	private List<Map.Entry<Integer, Collection<Card>>> aceLow(List<Map.Entry<Integer, Collection<Card>>> cardsByValue) {
+		return cardsByValue;
 	}
 	
 	private List<Card> cardsFrom(List<Map.Entry<Integer, Collection<Card>>> firstFiveMakeTheStraight) {
