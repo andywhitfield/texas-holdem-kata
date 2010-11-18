@@ -75,6 +75,10 @@ public class PokerRoundScenariosTest {
 	        	.expect("john: 2h 3c Ah 4d Js Th 5s [Straight 5s 4d 3c 2h Ah]\n" +
 	        			"jane: Kd Qc Ah 4d Js Th 5s [Straight Ah Kd Qc Js Th] (Winner)") },
 	        	        
+	        { Round.scenario("low-to-high straight wrapping is not allowed", "john 2h 3c", "jane Jh Js").deal("Kd Qc Ah Th 5s")
+	        	.expect("john: 2h 3c Kd Qc Ah Th 5s [High Card Kicker(s) Ah Kd Qc Th 5s]\n" +
+	        			"jane: Jh Js Kd Qc Ah Th 5s [Straight Ah Kd Qc Jh Th] (Winner)") },
+	        	        
 	        { Round.scenario("hand with straight and three-of-a-kind should beat three-of-a-kind", "john 7h Ac", "jane 4d 6c").deal("3c 5d 3s 3h 2h")
 	        	.expect("john: 7h Ac 3c 5d 3s 3h 2h [Three Of A Kind 3c 3s 3h Kicker(s) Ac 7h]\n" +
 	        			"jane: 4d 6c 3c 5d 3s 3h 2h [Straight 6c 5d 4d 3c 2h] (Winner)") }
