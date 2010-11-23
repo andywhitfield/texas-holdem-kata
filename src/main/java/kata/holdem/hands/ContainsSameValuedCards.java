@@ -1,13 +1,13 @@
 package kata.holdem.hands;
 
 import java.util.Collection;
-import java.util.Map;
 
 import kata.holdem.Card;
+import kata.holdem.collections.KeyValue;
 import kata.holdem.collections.Predicate;
 import kata.holdem.hands.Hands.SameValueMatchType;
 
-class ContainsSameValuedCards implements Predicate<Map.Entry<Integer, Collection<Card>>> {
+class ContainsSameValuedCards implements Predicate<KeyValue<Integer, Collection<Card>>> {
 	private final int numberOfMatches;
 	private final SameValueMatchType matchType;
 	
@@ -17,7 +17,7 @@ class ContainsSameValuedCards implements Predicate<Map.Entry<Integer, Collection
 	}
 	
 	@Override
-	public boolean evaluate(Map.Entry<Integer, Collection<Card>> cardsWithTheSameValue) {
+	public boolean evaluate(KeyValue<Integer, Collection<Card>> cardsWithTheSameValue) {
 		switch (matchType) {
 		case Exact:
 			return cardsWithTheSameValue.getValue().size() == numberOfMatches;

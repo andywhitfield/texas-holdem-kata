@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Iterables {
 	public static <T, K> Map<K, Collection<T>> groupBy(Iterable<T> items, Action<T, K> keyMapper) {
@@ -77,5 +78,13 @@ public class Iterables {
 				};
 			}
 		};
+	}
+
+	public static <K, V> Iterable<KeyValue<K, V>> keyValues(Map<K, V> map) {
+		return Iterables.select(map.entrySet(), new Action<Map.Entry<K, V>, KeyValue<K, V>>() {
+			@Override
+			public KeyValue<K, V> action(Entry<K, V> entry) {
+				return new KeyValue<K, V>(entry.getKey(), entry.getValue());
+			}});
 	}
 }
