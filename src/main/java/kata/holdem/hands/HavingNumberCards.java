@@ -7,11 +7,11 @@ import kata.holdem.collections.KeyValue;
 import kata.holdem.collections.Predicate;
 import kata.holdem.hands.Hands.SameValueMatchType;
 
-class ContainsSameValuedCards<K> implements Predicate<KeyValue<K, Collection<Card>>> {
+class HavingNumberCards<K> implements Predicate<KeyValue<K, Collection<Card>>> {
 	private final int numberOfMatches;
 	private final SameValueMatchType matchType;
 	
-	public ContainsSameValuedCards(int numberOfMatches, SameValueMatchType matchType) {
+	public HavingNumberCards(int numberOfMatches, SameValueMatchType matchType) {
 		this.numberOfMatches = numberOfMatches;
 		this.matchType = matchType;
 	}

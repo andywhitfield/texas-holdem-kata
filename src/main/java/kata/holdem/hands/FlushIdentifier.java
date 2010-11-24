@@ -15,7 +15,7 @@ public class FlushIdentifier implements HandIdentifier {
 	@Override
 	public RankedHand accept(String player, Iterable<Card> cards) {
 		Map<Suit, Collection<Card>> groupedBySuit = Iterables.groupBy(cards, new CardSuit());
-		Collection<KeyValue<Suit, Collection<Card>>> flush = Iterables.where(Iterables.keyValues(groupedBySuit), new ContainsSameValuedCards<Suit>(5, SameValueMatchType.Minimum));
+		Collection<KeyValue<Suit, Collection<Card>>> flush = Iterables.where(Iterables.keyValues(groupedBySuit), new HavingNumberCards<Suit>(5, SameValueMatchType.Minimum));
 		if (flush.isEmpty()) return null;
 		return new RankedHand(player, cards, this, Iterables.sort(flush.iterator().next().getValue(), new FaceValueOrder()).subList(0, 5));
 	}
