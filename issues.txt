@@ -3,6 +3,3 @@
 - Does the PairIdentifier class need to also accept three of a kind/2 pairs
 etc? I don't think so, but we will need some tests around these conditions
 once there are three-of-a-kind/full house/etc... identifiers.
-
-- The aceLow implementation within StraightIdentifier is less than obvious.
-Some refactoring should be done here.
