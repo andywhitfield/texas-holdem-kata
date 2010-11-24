@@ -81,7 +81,32 @@ public class PokerRoundScenariosTest {
 	        	        
 	        { Round.scenario("hand with straight and three-of-a-kind should beat three-of-a-kind", "john 7h Ac", "jane 4d 6c").deal("3c 5d 3s 3h 2h")
 	        	.expect("john: 7h Ac 3c 5d 3s 3h 2h [Three Of A Kind 3c 3s 3h Kicker(s) Ac 7h]\n" +
-	        			"jane: 4d 6c 3c 5d 3s 3h 2h [Straight 6c 5d 4d 3c 2h] (Winner)") }
+	        			"jane: 4d 6c 3c 5d 3s 3h 2h [Straight 6c 5d 4d 3c 2h] (Winner)") },
+	        			
+	        { Round.scenario("flush beats high card", "john 7h Ah", "jane 4d 6c").deal("2h 8h Tc Kh Js")
+	        	.expect("john: 7h Ah 2h 8h Tc Kh Js [Flush Ah Kh 8h 7h 2h (Winner)]\n" +
+	        			"jane: 4d 6c 2h 8h Tc Kh Js [High Card Kicker(s) Kh Js Tc 8h 6c]") },
+	        			
+	        { Round.scenario("flush beats pair", "john 7h Ac", "jane 4c 6c").deal("Ah 2c 8c Qc Kd")
+	        	.expect("john: 7h Ac Ah 2c 8c Qc Kd [Pair Ac Ah Kicker(s) Kd Qc 8c]\n" +
+	        			"jane: 4c 6c Ah 2c 8c Qc Kd [Flush Qc 8c 6c 4c 2c] (Winner)") },
+	        			
+	        { Round.scenario("flush beats two-pair", "john 7s Ah", "jane 4c 6c").deal("Ac 7c 8d Qc 2h")
+	        	.expect("john: 7s Ah Ac 7c 8d Qc 2h [Two Pair Ah Ac 7s 7c Kicker(s) Qc]\n" +
+	        			"jane: 4c 6c Ac 7c 8d Qc 2h [Flush Ac Qc 7c 6c 4c] (Winner)") },
+	        			
+	        { Round.scenario("flush beats three-of-a-kind", "john 2h 7h", "jane 4d 4s").deal("4h 2s 9h Ah Js")
+	        	.expect("john: 2h 7h 4h 2s 9h Ah Js [Flush Ah 9h 7h 4h 2h] (Winner)\n" +
+	        			"jane: 4d 4s 4h 2s 9h Ah Js [Three Of A Kind 4d 4s 4h Kicker(s) Ah Js]") },
+	        			
+	        { Round.scenario("flush beats straight", "john 5h Ac", "jane 4d Td").deal("3d 4c 2d 4h Kd")
+	        	.expect("john: 5h Ac 3d 4c 2d 4h Kd [Straight 5h 4c 3d 2d Ac]\n" +
+	        			"jane: 4d Td 3d 4c 2d 4h Kd [Flush Kd Td 4d 3d 2d] (Winner)") },
+	        			
+	        { Round.scenario("highest flush wins", "john 2c Kc", "jane Qc 3c").deal("4c 6c 8c 8h 8s")
+	        	.expect("john: 2c Kc 4c 6c 8c 8h 8s [Flush Kc 8c 6c 4c 2c] (Winner)\n" +
+	        			"jane: Qc 3c 4c 6c 8c 8h 8s [Flush Qc 8c 6c 4c 3c]") },
+	        	        			
         });
     }
 
