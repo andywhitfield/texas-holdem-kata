@@ -84,7 +84,7 @@ public class PokerRoundScenariosTest {
 	        			"jane: 4d 6c 3c 5d 3s 3h 2h [Straight 6c 5d 4d 3c 2h] (Winner)") },
 	        			
 	        { Round.scenario("flush beats high card", "john 7h Ah", "jane 4d 6c").deal("2h 8h Tc Kh Js")
-	        	.expect("john: 7h Ah 2h 8h Tc Kh Js [Flush Ah Kh 8h 7h 2h (Winner)]\n" +
+	        	.expect("john: 7h Ah 2h 8h Tc Kh Js [Flush Ah Kh 8h 7h 2h] (Winner)\n" +
 	        			"jane: 4d 6c 2h 8h Tc Kh Js [High Card Kicker(s) Kh Js Tc 8h 6c]") },
 	        			
 	        { Round.scenario("flush beats pair", "john 7h Ac", "jane 4c 6c").deal("Ah 2c 8c Qc Kd")

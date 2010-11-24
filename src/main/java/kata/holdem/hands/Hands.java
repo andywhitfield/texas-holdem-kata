@@ -17,7 +17,7 @@ public class Hands {
 	}
 	public static List<KeyValue<Integer, Collection<Card>>> existSameValuedCards(Iterable<Card> cards, int numberOfSameValuedCards, SameValueMatchType matchType) {
 		Map<Integer, Collection<Card>> groupedByValue = Iterables.groupBy(cards, new CardNumericValue());
-		Collection<KeyValue<Integer, Collection<Card>>> sameValuedCards = Iterables.where(Iterables.keyValues(groupedByValue), new ContainsSameValuedCards(numberOfSameValuedCards, matchType));
+		Collection<KeyValue<Integer, Collection<Card>>> sameValuedCards = Iterables.where(Iterables.keyValues(groupedByValue), new ContainsSameValuedCards<Integer>(numberOfSameValuedCards, matchType));
 		
 		return Iterables.sort(sameValuedCards, new Comparator<KeyValue<Integer, Collection<Card>>>() {
 			@Override

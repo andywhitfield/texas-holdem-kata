@@ -7,7 +7,7 @@ import kata.holdem.collections.KeyValue;
 import kata.holdem.collections.Predicate;
 import kata.holdem.hands.Hands.SameValueMatchType;
 
-class ContainsSameValuedCards implements Predicate<KeyValue<Integer, Collection<Card>>> {
+class ContainsSameValuedCards<K> implements Predicate<KeyValue<K, Collection<Card>>> {
 	private final int numberOfMatches;
 	private final SameValueMatchType matchType;
 	
@@ -17,7 +17,7 @@ class ContainsSameValuedCards implements Predicate<KeyValue<Integer, Collection<
 	}
 	
 	@Override
-	public boolean evaluate(KeyValue<Integer, Collection<Card>> cardsWithTheSameValue) {
+	public boolean evaluate(KeyValue<K, Collection<Card>> cardsWithTheSameValue) {
 		switch (matchType) {
 		case Exact:
 			return cardsWithTheSameValue.getValue().size() == numberOfMatches;

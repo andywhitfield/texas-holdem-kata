@@ -3,7 +3,7 @@ package kata.holdem;
 import java.io.Serializable;
 import java.util.Comparator;
 
-class FaceValueOrder implements Comparator<Card>, Serializable {
+public class FaceValueOrder implements Comparator<Card>, Serializable {
 	private static final long serialVersionUID = 5896746875768640262L;
 
 	@Override
