@@ -8,6 +8,7 @@ import java.util.List;
 
 import kata.holdem.collections.Iterables;
 import kata.holdem.collections.Predicate;
+import kata.holdem.hands.FlushIdentifier;
 import kata.holdem.hands.HandIdentifier;
 import kata.holdem.hands.HighCardIdentifier;
 import kata.holdem.hands.PairIdentifier;
@@ -23,6 +24,7 @@ public class RankedHand {
 		}};
 
 	private static final List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
+				new FlushIdentifier(),
 				new StraightIdentifier(),
 				new ThreeOfAKindIdentifier(),
 				new TwoPairIdentifier(),
