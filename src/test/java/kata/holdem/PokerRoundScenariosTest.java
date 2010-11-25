@@ -106,7 +106,35 @@ public class PokerRoundScenariosTest {
 	        { Round.scenario("highest flush wins", "john 2c Kc", "jane Qc 3c").deal("4c 6c 8c 8h 8s")
 	        	.expect("john: 2c Kc 4c 6c 8c 8h 8s [Flush Kc 8c 6c 4c 2c] (Winner)\n" +
 	        			"jane: Qc 3c 4c 6c 8c 8h 8s [Flush Qc 8c 6c 4c 3c]") },
+	        			
+	        { Round.scenario("full house beats pair", "john 7h 7c", "jane 4d 6c").deal("7s Th Tc 2d Kd")
+	        	.expect("john: 7h 7c 7s Th Tc 2d Kd [Full House 7h 7c 7s Th Tc] (Winner)\n" +
+	        			"jane: 4d 6c 7s Th Tc 2d Kd [Pair Th Tc Kicker(s) Kd 7s 6c]") },
 	        	        			
+	        { Round.scenario("full house beats two-pair", "john 4d 4h", "jane 3d Tc").deal("3h 3c 9s 2h 9c")
+	        	.expect("john: 4d 4h 3h 3c 9s 2h 9c [Two Pair 9s 9c 4d 4h Kicker(s) 3h]\n" +
+	        			"jane: 3d Tc 3h 3c 9s 2h 9c [Full House 3d 3h 3c 9s 9c] (Winner)") },
+	        	        			
+	        { Round.scenario("full house beats three-of-a-kind", "john 7h Ah", "jane Kh Kc").deal("2h 2d 9s Ts 2c")
+	        	.expect("john: 7h Ah 2h 2d 9s Ts 2c [Three Of A Kind 2h 2d 2c Kicker(s) Ah Ts]\n" +
+	        			"jane: Kh Kc 2h 2d 9s Ts 2c [Full House 2h 2d 2c Kh Kc] (Winner)") },
+	        	        			
+	        { Round.scenario("full house beats straight", "john Ac Ah", "jane 4d 5c").deal("Ad 2s 3d 3c Th")
+	        	.expect("john: Ac Ah Ad 2s 3d 3c Th [Full House Ac Ah Ad 3d 3c] (Winner)\n" +
+	        			"jane: 4d 5c Ad 2s 3d 3c Th [Straight 5c 4d 3d 2s Ad]") },
+	        	        			
+	        { Round.scenario("full house beats flush", "john 7h 7c", "jane 4c 6c").deal("Tc Qc Ts 2c 7d")
+	        	.expect("john: 7h 7c Tc Qc Ts 2c 7d [Full House 7h 7c 7d Tc Ts] (Winner)\n" +
+	        			"jane: 4c 6c Tc Qc Ts 2c 7d [Flush Qc Tc 6c 4c 2c]") },
+	        			
+	        { Round.scenario("three-aces full house wins", "john 7h Ah", "jane 2s 9h").deal("2c Ac As 2d 9c")
+	        	.expect("john: 7h Ah 2c Ac As 2d 9c [Full House Ah Ac As 2c 2d] (Winner)\n" +
+	        			"jane: 2s 9h 2c Ac As 2d 9c [Full House 2s 2c 2d Ac As]") },
+	        			
+	        { Round.scenario("three-fours full house wins", "john 3d 3c", "jane 4d 4h").deal("Ah 4s Ac 3s 9h")
+	        	.expect("john: 3d 3c Ah 4s Ac 3s 9h [Full House 3d 3c 3s Ah Ac]\n" +
+	        			"jane: 4d 4h Ah 4s Ac 3s 9h [Full House 4d 4h 4s Ah Ac] (Winner)") },
+    	        	        	        	        	        	        			
         });
     }
 
