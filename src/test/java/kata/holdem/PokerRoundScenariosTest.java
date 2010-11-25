@@ -115,9 +115,9 @@ public class PokerRoundScenariosTest {
 	        	.expect("john: 4d 4h 3h 3c 9s 2h 9c [Two Pair 9s 9c 4d 4h Kicker(s) 3h]\n" +
 	        			"jane: 3d Tc 3h 3c 9s 2h 9c [Full House 3d 3h 3c 9s 9c] (Winner)") },
 	        	        			
-	        { Round.scenario("full house beats three-of-a-kind", "john 7h Ah", "jane Kh Kc").deal("2h 2d 9s Ts 2c")
-	        	.expect("john: 7h Ah 2h 2d 9s Ts 2c [Three Of A Kind 2h 2d 2c Kicker(s) Ah Ts]\n" +
-	        			"jane: Kh Kc 2h 2d 9s Ts 2c [Full House 2h 2d 2c Kh Kc] (Winner)") },
+	        { Round.scenario("full house beats three-of-a-kind", "john 7h Ah", "jane Kh Kc").deal("2h 2d Ks Ts 2c")
+	        	.expect("john: 7h Ah 2h 2d Ks Ts 2c [Three Of A Kind 2h 2d 2c Kicker(s) Ah Ks]\n" +
+	        			"jane: Kh Kc 2h 2d Ks Ts 2c [Full House Kh Kc Ks 2h 2d] (Winner)") },
 	        	        			
 	        { Round.scenario("full house beats straight", "john Ac Ah", "jane 4d 5c").deal("Ad 2s 3d 3c Th")
 	        	.expect("john: Ac Ah Ad 2s 3d 3c Th [Full House Ac Ah Ad 3d 3c] (Winner)\n" +
