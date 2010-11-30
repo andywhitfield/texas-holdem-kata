@@ -167,6 +167,42 @@ public class PokerRoundScenariosTest {
 	        	.expect("john: 3s 3h 5h 5c 5d 5s 3c [Four Of A Kind 5h 5c 5d 5s Kicker(s) 3s]\n" +
 	        			"jane: 4d 4c 5h 5c 5d 5s 3c [Four Of A Kind 5h 5c 5d 5s Kicker(s) 4d] (Winner)") },
 	        	        			
+	        { Round.scenario("straight-flush beats high card", "john 2h 3h", "jane 9d Ac").deal("4h 5h 6h Td Qs")
+	        	.expect("john: 2h 3h 4h 5h 6h Td Qs [Straight Flush 6h 5h 4h 3h 2h] (Winner)\n" +
+	        			"jane: 9d Ac 4h 5h 6h Td Qs [High Card Kicker(s) Ac Qs Td 9d 6h]") },
+	        			
+	        { Round.scenario("straight-flush beats pair", "john 2h 3h", "jane 6d Ac").deal("4h 5h 6h Td Qs")
+	        	.expect("john: 2h 3h 4h 5h 6h Td Qs [Straight Flush 6h 5h 4h 3h 2h] (Winner)\n" +
+	        			"jane: 6d Ac 4h 5h 6h Td Qs [Pair 6d 6h Kicker(s) Ac Qs Td]") },
+	        			
+	        { Round.scenario("straight-flush beats two pair", "john 4c 5s", "jane 2h 3h").deal("4h 5h 6h Td Qs")
+	        	.expect("john: 4c 5s 4h 5h 6h Td Qs [Two Pair 5s 5h 4c 4h Kicker(s) Qs]\n" +
+	        			"jane: 2h 3h 4h 5h 6h Td Qs [Straight Flush 6h 5h 4h 3h 2h] (Winner)") },
+	        			
+	        { Round.scenario("straight-flush beats three of a kind", "john 5c 2s", "jane 2h 3h").deal("4h 5h 6h 5d Qs")
+	        	.expect("john: 5c 2s 4h 5h 6h 5d Qs [Three Of A Kind 5c 5h 5d Kicker(s) Qs 6h]\n" +
+	        			"jane: 2h 3h 4h 5h 6h 5d Qs [Straight Flush 6h 5h 4h 3h 2h] (Winner)") },
+	        			
+	        { Round.scenario("straight-flush beats straight", "john 2h 3h", "jane 7d 8s").deal("4h 5h 6h Td Qs")
+	        	.expect("john: 2h 3h 4h 5h 6h Td Qs [Straight Flush 6h 5h 4h 3h 2h] (Winner)\n" +
+	        			"jane: 7d 8s 4h 5h 6h Td Qs [Straight 8s 7d 6h 5h 4h]") },
+	        			
+	        { Round.scenario("straight-flush beats flush", "john 2h 3h", "jane Ah Th").deal("4h 5h 6h Td Qs")
+	        	.expect("john: 2h 3h 4h 5h 6h Td Qs [Straight Flush 6h 5h 4h 3h 2h] (Winner)\n" +
+	        			"jane: Ah Th 4h 5h 6h Td Qs [Flush Ah Th 6h 5h 4h]") },
+	        			
+	        { Round.scenario("straight-flush beats full house", "john 5d 4s", "jane 2h 3h").deal("4h 5h 6h 6d 6s")
+	        	.expect("john: 5d 4s 4h 5h 6h 6d 6s [Full House 6h 6d 6s 5d 5h]\n" +
+	        			"jane: 2h 3h 4h 5h 6h 6d 6s [Straight Flush 6h 5h 4h 3h 2h] (Winner)") },
+	        			
+	        { Round.scenario("straight-flush beats four of a kind", "john 6c 4s", "jane 2h 3h").deal("4h 5h 6h 6d 6s")
+	        	.expect("john: 6c 4s 4h 5h 6h 6d 6s [Four Of A Kind 6c 6h 6d 6s Kicker(s) 5h]\n" +
+	        			"jane: 2h 3h 4h 5h 6h 6d 6s [Straight Flush 6h 5h 4h 3h 2h] (Winner)") },
+	        			
+	        { Round.scenario("highest straight-flush wins", "john 2h 3h", "jane 7h 8h").deal("4h 5h 6h Td Qs")
+	        	.expect("john: 2h 3h 4h 5h 6h Td Qs [Straight Flush 6h 5h 4h 3h 2h]\n" +
+	        			"jane: 7h 8h 4h 5h 6h Td Qs [Straight Flush 8h 7h 6h 5h 4h] (Winner)") },
+        	
         });
     }
 
