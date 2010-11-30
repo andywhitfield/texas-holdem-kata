@@ -149,7 +149,7 @@ public class PokerRoundScenariosTest {
 	        			
 	        { Round.scenario("four-of-a-kind beats straight", "john 5s 5c", "jane 4h 6d").deal("3s 7h Kd 5d 5h")
 	        	.expect("john: 5s 5c 3s 7h Kd 5d 5h [Four Of A Kind 5s 5c 5d 5h Kicker(s) Kd] (Winner)\n" +
-	        			"jane: 4h 6d 3s 7h Kd 5d 5h [Straight 7h 6d 5d 4h 3s ]") },
+	        			"jane: 4h 6d 3s 7h Kd 5d 5h [Straight 7h 6d 5d 4h 3s]") },
 	        			
 	        { Round.scenario("four-of-a-kind beats flush", "john Ah 3h", "jane Kd 2s").deal("Kh Ks 7h Kc 9h")
 	        	.expect("john: Ah 3h Kh Ks 7h Kc 9h [Flush Ah Kh 9h 7h 3h]\n" +
