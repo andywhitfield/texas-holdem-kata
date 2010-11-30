@@ -135,6 +135,38 @@ public class PokerRoundScenariosTest {
 	        	.expect("john: 3d 3c Ah 4s Ac 3s 9h [Full House 3d 3c 3s Ah Ac]\n" +
 	        			"jane: 4d 4h Ah 4s Ac 3s 9h [Full House 4d 4h 4s Ah Ac] (Winner)") },
     	        	        	        	        	        	        			
+	        { Round.scenario("four-of-a-kind beats pair", "john 3d Ah", "jane Kd Kc").deal("2h 4c 6d Ks Kh")
+	        	.expect("john: 3d Ah 2h 4c 6d Ks Kh [Pair Ks Kh Kicker(s) Ah 6d 4c]\n" +
+	        			"jane: Kd Kc 2h 4c 6d Ks Kh [Four Of A Kind Kd Kc Ks Kh Kicker(s) 6d] (Winner)") },
+	        			
+	        { Round.scenario("four-of-a-kind beats two-pair", "john Kc Kd", "jane 2c 3d").deal("2h 4c 6d Ks Kh")
+	        	.expect("john: Kc Kd 2h 4c 6d Ks Kh [Four Of A Kind Kc Kd Ks Kh Kicker(s) 6d] (Winner)\n" +
+	        			"jane: 2c 3d 2h 4c 6d Ks Kh [Two Pair Ks Kh 2c 2h Kicker(s) 6d]") },
+	        			
+	        { Round.scenario("four-of-a-kind beats three-of-a-kind", "john Kc Ah", "jane 3c 9s").deal("3h 4c 3d 6h 3s")
+	        	.expect("john: Kc Ah 3h 4c 3d 6h 3s [Three Of A Kind 3h 3d 3s Kicker(s) Ah Kc]\n" +
+	        			"jane: 3c 9s 3h 4c 3d 6h 3s [Four Of A Kind 3c 3h 3d 3s Kicker(s) 9s] (Winner)") },
+	        			
+	        { Round.scenario("four-of-a-kind beats straight", "john 5s 5c", "jane 4h 6d").deal("3s 7h Kd 5d 5h")
+	        	.expect("john: 5s 5c 3s 7h Kd 5d 5h [Four Of A Kind 5s 5c 5d 5h Kicker(s) Kd] (Winner)\n" +
+	        			"jane: 4h 6d 3s 7h Kd 5d 5h [Straight 7h 6d 5d 4h 3s ]") },
+	        			
+	        { Round.scenario("four-of-a-kind beats flush", "john Ah 3h", "jane Kd 2s").deal("Kh Ks 7h Kc 9h")
+	        	.expect("john: Ah 3h Kh Ks 7h Kc 9h [Flush Ah Kh 9h 7h 3h]\n" +
+	        			"jane: Kd 2s Kh Ks 7h Kc 9h [Four Of A Kind Kd Kh Ks Kc Kicker(s) 9h] (Winner)") },
+	        			
+	        { Round.scenario("four-of-a-kind beats full house", "john Ah Ac", "jane 9s 9d").deal("9c 2d As Ad 2c")
+	        	.expect("john: Ah Ac 9c 2d As Ad 2c [Four Of A Kind Ah Ac As Ad Kicker(s) 9c] (Winner)\n" +
+	        			"jane: 9s 9d 9c 2d As Ad 2c [Full House 9s 9d 9c As Ad]") },
+	        			
+	        { Round.scenario("highest four-of-a-kind wins", "john Th Ts", "jane Qc Qh").deal("Qd Td Tc 2s Qs")
+	        	.expect("john: Th Ts Qd Td Tc 2s Qs [Four Of A Kind Th Ts Td Tc Kicker(s) Qd]\n" +
+	        			"jane: Qc Qh Qd Td Tc 2s Qs [Four Of A Kind Qc Qh Qd Qs Kicker(s) Td] (Winner)") },
+	        			
+	        { Round.scenario("same four-of-a-kind, highest kicker wins", "john 3s 3h", "jane 4d 4c").deal("5h 5c 5d 5s 3c")
+	        	.expect("john: 3s 3h 5h 5c 5d 5s 3c [Four Of A Kind 5h 5c 5d 5s Kicker(s) 3s]\n" +
+	        			"jane: 4d 4c 5h 5c 5d 5s 3c [Four Of A Kind 5h 5c 5d 5s Kicker(s) 4d] (Winner)") },
+	        	        			
         });
     }
 
