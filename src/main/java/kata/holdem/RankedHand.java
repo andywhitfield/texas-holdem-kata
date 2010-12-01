@@ -14,6 +14,7 @@ import kata.holdem.hands.FullHouseIdentifier;
 import kata.holdem.hands.HandIdentifier;
 import kata.holdem.hands.HighCardIdentifier;
 import kata.holdem.hands.PairIdentifier;
+import kata.holdem.hands.StraightFlushIdentifier;
 import kata.holdem.hands.StraightIdentifier;
 import kata.holdem.hands.ThreeOfAKindIdentifier;
 import kata.holdem.hands.TwoPairIdentifier;
@@ -26,6 +27,7 @@ public class RankedHand {
 		}};
 
 	private static final List<HandIdentifier> handIdentifiers = Arrays.<HandIdentifier>asList(
+				new StraightFlushIdentifier(),
 				new FourOfAKindIdentifier(),
 				new FullHouseIdentifier(),
 				new FlushIdentifier(),
