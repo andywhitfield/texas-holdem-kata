@@ -40,4 +40,15 @@ public class PokerRoundTest {
 		Assert.assertEquals("john: 4d 2d Qc Td 5s 6c 9h [High Card Kicker(s) Qc Td 9h 6c 5s]\n" +
 				"jane: Ah 3c Qc Td 5s 6c 9h [High Card Kicker(s) Ah Qc Td 9h 6c] (Winner)", round.toString());
 	}
+	
+	@Test
+	public void when_one_player_flops_pre_flop_then_other_player_should_be_declared_the_winner() {
+		PokerRound round = new PokerGame("john", "jane").newRound();
+		round.deal("john", "4d", "2d");
+		round.deal("jane", "Ah", "3c");
+		round.fold("john");
+		
+		Assert.assertEquals("john: 4d 2d [folded]\n" +
+				"jane: Ah 3c [High Card Kicker(s) Ah 3c] (Winner)", round.toString());
+	}
 }
