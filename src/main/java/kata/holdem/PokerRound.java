@@ -1,6 +1,8 @@
 package kata.holdem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +10,7 @@ import java.util.Map;
 public class PokerRound {
 	private final PokerGame game;
 	private Map<String, HoleCards> playerInfo = new HashMap<String, HoleCards>();
-	private List<Deal> deals = new ArrayList<Deal>();
+	private List<Deal> deals = new ArrayList<Deal>(Arrays.asList(new Deal(Collections.<Card>emptyList())));
 	
 	PokerRound(PokerGame game) {
 		this.game = game;
@@ -51,7 +53,7 @@ public class PokerRound {
 			
 			results.append(player).append(": ").append(playerInfo.get(player).cardsSummary());
 			for (Deal deal : deals) {
-				results.append(' ').append(deal.cardsSummary());
+				results.append(deal.getCardsInDeal().isEmpty() ? "" : " ").append(deal.cardsSummary());
 				if (deal.folded(player)) {
 					results.append(" [folded]");
 					playerFolded = true;
